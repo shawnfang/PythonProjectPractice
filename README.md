@@ -1,1 +1,1 @@
-# PythonProjectPractice
+# JavaProjectPractice
