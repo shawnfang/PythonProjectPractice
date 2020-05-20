@@ -1,7 +1,7 @@
 package com.lms.entity;
 
 public class BookInfo {
-    private int bookid;
+    private int bookId;
     private int bookSortId;
     private String bookName;
     private String bookAuthor;
@@ -19,8 +19,8 @@ public class BookInfo {
         return bookCount;
     }
 
-    public int getBookid() {
-        return bookid;
+    public int getBookId() {
+        return bookId;
     }
 
     public int getBookSortId() {
@@ -55,8 +55,8 @@ public class BookInfo {
         this.bookCount = bookCount;
     }
 
-    public void setBookid(int bookid) {
-        this.bookid = bookid;
+    public void setBookId(int bookid) {
+        this.bookId = bookId;
     }
 
     public void setBookMark(String bookMark) {
@@ -86,7 +86,7 @@ public class BookInfo {
     @Override
     public String toString() {
         return "BookInfo{" +
-                "bookid=" + bookid +
+                "bookId=" + bookId +
                 ", bookSortId=" + bookSortId +
                 ", bookName='" + bookName + '\'' +
                 ", bookAuthor='" + bookAuthor + '\'' +

@@ -15,7 +15,7 @@ public interface BookDao {
      * @param arr
      * @return
      */
-    public List<BookInfo> selectBook(String sql, Object[] arr);
+    public List<BookInfo> selectBook(int offset, int limit);
 
     /**
      * 根据用户id进行查询操作
