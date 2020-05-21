@@ -1,6 +1,7 @@
 package com.lms.dao;
 
 import java.util.List;
+
 import com.lms.entity.BookInfo;
 
 /***
@@ -8,14 +9,14 @@ import com.lms.entity.BookInfo;
  * @author shawnfang
  *
  */
-public interface BookDao {
+public interface BookInfoDao {
     /***
      * 查询图书的信息
      * @param sql
      * @param arr
      * @return
      */
-    public List<BookInfo> selectBook(int offset, int limit);
+    public List<BookInfo> selectBook(int limit);
 
     /**
      * 根据用户id进行查询操作

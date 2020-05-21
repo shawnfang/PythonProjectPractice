@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.lms.dao.BookDao">
+<mapper namespace="com.lms.dao.BookInfoDao">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
     <select id="getBookId" resultType="BookInfo" parameterType="int">
         <!-- 具体的sql -->
@@ -35,10 +35,10 @@
 			book_sum,
 			book_mark
 		FROM
-			book
+			book_info
 		ORDER BY
 			book_id
-		LIMIT #{offset}, #{limit}
+		LIMIT  #{limit}
 	</select>
 
 
