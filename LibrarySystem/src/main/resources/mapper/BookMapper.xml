@@ -3,9 +3,9 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.library.lms.dao.BookInfoDao">
+<mapper namespace="com.library.lms.mapper.BookInfoMapper">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
-    <select id="getBookId" resultType="BookInfo" parameterType="int">
+    <select id="getBookId" resultType="com.library.lms.pojo.BookInfo" parameterType="int">
         <!-- 具体的sql -->
         SELECT
         book_id,
@@ -23,7 +23,7 @@
         book_id = #{bookId}
     </select>
 
-    <select id="selectBook" resultType="BookInfo">
+    <select id="selectBook" resultType="com.library.lms.pojo.BookInfo">
         SELECT
         book_id,
         book_name,
