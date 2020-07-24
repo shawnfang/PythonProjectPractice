@@ -15,7 +15,7 @@
         book_price,
         book_type,
         book_publish,
-        book_sum,
+        book_sun,
         book_mark
         FROM
         book_info
@@ -23,7 +23,7 @@
         book_id = #{bookId}
     </select>
 
-    <select id="selectBook" resultType="com.library.lms.pojo.BookInfo">
+    <select id="selectBook" resultType="com.library.lms.pojo.BookInfo" parameterType="int">
         SELECT
         book_id,
         book_name,
@@ -32,7 +32,7 @@
         book_price,
         book_type,
         book_publish,
-        book_sum,
+        book_sun,
         book_mark
         FROM
         book_info

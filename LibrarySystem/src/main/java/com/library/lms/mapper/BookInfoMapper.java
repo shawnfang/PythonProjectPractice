@@ -1,6 +1,7 @@
 package com.library.lms.mapper;
 
 import com.library.lms.pojo.BookInfo;
+import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ import java.util.List;
  * @author shawnfang
  *
  */
+@Mapper
 public interface BookInfoMapper {
     /***
      * 查询图书的信息

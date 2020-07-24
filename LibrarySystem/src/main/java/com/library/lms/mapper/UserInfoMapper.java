@@ -1,8 +1,10 @@
 package com.library.lms.mapper;
 
 import com.library.lms.pojo.UserInfo;
-import java.util.List;
+import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+@Mapper
 public interface UserInfoMapper {
     /***
      * 用户登录的方法
