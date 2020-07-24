@@ -22,6 +22,7 @@ public interface UserInfoDao {
 
     /**
      * 根据用户id进行查询操作
+     *
      * @param userId
      * @return
      */

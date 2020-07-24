@@ -25,11 +25,9 @@ public class RecordInfo {
     }
 
 
-
     public Date getDateTime() {
         return dateTime;
     }
-
 
 
     public int getRecordId() {
@@ -44,6 +42,7 @@ public class RecordInfo {
     public void setRecordId(int recordId) {
         this.recordId = recordId;
     }
+
     @Override
     public String toString() {
         return "RecordInfo{" +
@@ -53,7 +52,6 @@ public class RecordInfo {
                 ", dateTime=" + dateTime +
                 '}';
     }
-
 
 
 }

@@ -8,6 +8,7 @@ import java.util.List;
 @Service
 public interface BookInfoService {
     BookInfo getById(int bookId);
+
     List<BookInfo> getList();
 
 }

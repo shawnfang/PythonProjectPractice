@@ -22,7 +22,7 @@ public class BookInfoDaoTest extends BaseTest {
 
     @Test
     public void testSelectBook() throws Exception {
-        List<BookInfo> books = bookInfoDao.selectBook( 4);
+        List<BookInfo> books = bookInfoDao.selectBook(4);
         for (BookInfo book : books) {
             System.out.println(book);
         }

@@ -17,10 +17,10 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
 
-    @RequestMapping(value = "list",method = RequestMethod.GET)
-    private String list(Model model){
+    @RequestMapping(value = "list", method = RequestMethod.GET)
+    private String list(Model model) {
         List<BookInfo> list = bookInfoService.getList();
-        model.addAttribute("list",list);
+        model.addAttribute("list", list);
         return "list";
     }
 
