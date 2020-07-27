@@ -6,7 +6,7 @@ import java.util.List;
 
 
 public interface BookInfoService {
-    BookInfo getById(int bookId);
+    String getById(int bookId);
 
     List<BookInfo> getList();
 

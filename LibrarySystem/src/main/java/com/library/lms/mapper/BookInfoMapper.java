@@ -26,6 +26,6 @@ public interface BookInfoMapper {
      * @param bookId
      * @return
      */
-    public BookInfo getBookId(Integer bookId);
+    public String getBookId(Integer bookId);
 
 }
