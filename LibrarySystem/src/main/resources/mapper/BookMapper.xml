@@ -15,6 +15,17 @@
         book_id = #{bookId}
     </select>
 
+    <select id="getBookInfo" resultType="map" parameterType="int">
+        <!-- 具体的sql -->
+        SELECT
+        *
+        FROM
+        book_info
+        WHERE
+        book_id = #{bookId}
+    </select>
+
+
     <select id="selectBook" resultType="com.library.lms.pojo.BookInfo" parameterType="int">
         SELECT
         book_id,

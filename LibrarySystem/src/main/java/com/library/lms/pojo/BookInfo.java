@@ -8,15 +8,10 @@ public class BookInfo {
     private Double bookPrice;
     private String bookType;
     private String bookPublish;
-    private int bookCount;
     private String bookMark;
 
     public Double getBookPrice() {
         return bookPrice;
-    }
-
-    public int getBookCount() {
-        return bookCount;
     }
 
     public int getBookId() {
@@ -49,10 +44,6 @@ public class BookInfo {
 
     public String getBookType() {
         return bookType;
-    }
-
-    public void setBookCount(int bookCount) {
-        this.bookCount = bookCount;
     }
 
     public void setBookId(int bookid) {
@@ -93,7 +84,6 @@ public class BookInfo {
                 ", bookPrice=" + bookPrice +
                 ", bookType='" + bookType + '\'' +
                 ", bookPublish='" + bookPublish + '\'' +
-                ", bookCount=" + bookCount +
                 ", bookMark='" + bookMark + '\'' +
                 '}';
     }

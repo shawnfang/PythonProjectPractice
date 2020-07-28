@@ -19,7 +19,7 @@ public interface UserInfoMapper {
      * @param arr
      * @return
      */
-    public List<UserInfo> selectUser(String sql, Object[] arr);
+    public List<UserInfo> selectUser(UserInfo user);
 
     /**
      * 根据用户id进行查询操作
@@ -28,4 +28,11 @@ public interface UserInfoMapper {
      * @return
      */
     public UserInfo getUserId(Integer userId);
+
+
+    public boolean addUser(UserInfo user);
+
+    public boolean deleteUser(UserInfo userInfo);
+
+    public boolean updateUser(UserInfo userInfo);
 }

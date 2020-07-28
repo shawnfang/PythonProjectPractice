@@ -1,11 +1,10 @@
-package com.library.lms.mapper;
+package com.library.lms.service;
 
 import com.library.lms.pojo.BookSort;
-import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
-@Mapper
-public interface BookSortMapper {
+
+public interface BookSortService {
 
     /***
      * 向数据库插入(添加)数据(图书类别的信息)
@@ -42,4 +41,5 @@ public interface BookSortMapper {
      * @return
      */
     public BookSort getBookSortId(BookSort bookSort);
+
 }
