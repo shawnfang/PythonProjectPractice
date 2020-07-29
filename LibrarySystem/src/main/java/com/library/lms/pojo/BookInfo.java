@@ -5,12 +5,21 @@ public class BookInfo {
     private int bookSortId;
     private String bookName;
     private String bookAuthor;
-    private Double bookPrice;
+    private int bookPrice;
     private String bookType;
     private String bookPublish;
     private String bookMark;
+    private int bookSum;
 
-    public Double getBookPrice() {
+    public int getBookSum() {
+        return bookSum;
+    }
+
+    public void setBookSum(int bookSum) {
+        this.bookSum = bookSum;
+    }
+
+    public int getBookPrice() {
         return bookPrice;
     }
 
@@ -58,7 +67,7 @@ public class BookInfo {
         this.bookName = bookName;
     }
 
-    public void setBookPrice(Double bookPrice) {
+    public void setBookPrice(int bookPrice) {
         this.bookPrice = bookPrice;
     }
 
@@ -73,6 +82,8 @@ public class BookInfo {
     public void setBookType(String bookType) {
         this.bookType = bookType;
     }
+
+
 
     @Override
     public String toString() {

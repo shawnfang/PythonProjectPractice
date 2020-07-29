@@ -16,7 +16,7 @@ public interface BookInfoMapper {
 
 
     /**
-     * 根据用户id进行查询操作
+     * 测试用的方法
      *
      * @param bookId
      * @return
@@ -28,7 +28,7 @@ public interface BookInfoMapper {
      * @param
      * @return
      */
-    public List<BookInfo> selectBook(BookInfo bookInfo);
+    public List<BookInfo> selectBook();
 
     /**
      * 根据用户id进行查询操作
@@ -57,11 +57,12 @@ public interface BookInfoMapper {
      * @param book
      * @return
      */
-    public boolean deleteBook(BookInfo book);
+    public boolean deleteBook(int book_id);
 
 
     /**
-     * 测试用的方法
+     * 根据用户id进行查询操作
+     *
      * @param bookId
      * @return
      */

@@ -27,14 +27,14 @@ public interface BookInfoService {
      * @param book
      * @return
      */
-    public List<BookInfo> selectBook(BookInfo book);
+    public List<BookInfo> selectBook();
 
     /***
      * 删除，可做假删除，也可以做真删除
      * @param book
      * @return
      */
-    public boolean deleteBook(BookInfo book);
+    public boolean deleteBook(int bookId);
 
     /***
      * 图书修改的方法
@@ -48,7 +48,7 @@ public interface BookInfoService {
      * @param book
      * @return
      */
-    public BookInfo getBookId(BookInfo book);
+    public BookInfo getBookId(int bookId);
 
 
     /***

@@ -17,8 +17,6 @@ public class BookInfoServiceImpl implements BookInfoService {
     @Autowired
     private BookInfoMapper bookInfoMapper;
 
-    @Autowired
-    private BookInfo bookInfo;
     private final static Logger logger = LoggerFactory.getLogger(BookInfoServiceImpl.class);
     public String getByIds(int bookId) {
         String bookName = bookInfoMapper.getBookIds(bookId);
@@ -31,7 +29,7 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public List<BookInfo> getList() {
-        return bookInfoMapper.selectBook(bookInfo);
+        return bookInfoMapper.selectBook();
     }
 
     public Map<String, Object> getBookInfo(int bookId) {
@@ -41,22 +39,28 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean insertBook(BookInfo book) {
-        return false;
+        return bookInfoMapper.addBook(book);
     }
 
-    public List<BookInfo> selectBook(BookInfo book) {
-        return null;
+    public List<BookInfo> selectBook() {
+        return bookInfoMapper.selectBook();
     }
 
-    public boolean deleteBook(BookInfo book) {
-        return false;
+    public boolean deleteBook(int bookId) {
+        return bookInfoMapper.deleteBook(bookId);
     }
 
     public boolean updateBook(BookInfo book) {
         return false;
     }
 
-    public BookInfo getBookId(BookInfo book) {
+    public BookInfo getBookId(int bookId) {
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo: bookInfos){
+            if (bookInfo.getBookId() == bookId) {
+                return bookInfo;
+            }
+        }
         return null;
     }
 
