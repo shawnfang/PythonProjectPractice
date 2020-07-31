@@ -1,101 +1,100 @@
 package com.library.lms.pojo;
 
 public class BookInfo {
-    private int bookId;
-    private int bookSortId;
-    private String bookName;
-    private String bookAuthor;
-    private int bookPrice;
-    private String bookType;
-    private String bookPublish;
-    private String bookMark;
-    private int bookSum;
+    private int book_id;
+    private int book_sort_id;
+    private String book_name;
+    private String book_author;
+    private int book_price;
+    private String book_type;
+    private String book_publish;
+    private int book_sum;
+    private int book_mark;
 
-    public int getBookSum() {
-        return bookSum;
+    public int getBook_id() {
+        return book_id;
     }
 
-    public void setBookSum(int bookSum) {
-        this.bookSum = bookSum;
+    public int getBook_mark() {
+        return book_mark;
     }
 
-    public int getBookPrice() {
-        return bookPrice;
+    public int getBook_price() {
+        return book_price;
     }
 
-    public int getBookId() {
-        return bookId;
+    public int getBook_sort_id() {
+        return book_sort_id;
     }
 
-    public int getBookSortId() {
-        return bookSortId;
+    public String getBook_author() {
+        return book_author;
     }
 
-    public String getBookAuthor() {
-        return bookAuthor;
+    public String getBook_name() {
+        return book_name;
     }
 
-    public String getBookMark() {
-        return bookMark;
+    public String getBook_publish() {
+        return book_publish;
     }
 
-    public String getBookName() {
-        return bookName;
+    public int getBook_sum() {
+        return book_sum;
     }
 
-    public void setBookAuthor(String bookAuthor) {
-        this.bookAuthor = bookAuthor;
+    public String getBook_type() {
+        return book_type;
     }
 
-    public String getBookPublish() {
-        return bookPublish;
+    public void setBook_author(String book_author) {
+        this.book_author = book_author;
     }
 
-    public String getBookType() {
-        return bookType;
+    public void setBook_id(int book_id) {
+        this.book_id = book_id;
     }
 
-    public void setBookId(int bookid) {
-        this.bookId = bookId;
+    public void setBook_mark(int book_mark) {
+        this.book_mark = book_mark;
     }
 
-    public void setBookMark(String bookMark) {
-        this.bookMark = bookMark;
+    public void setBook_name(String book_name) {
+        this.book_name = book_name;
     }
 
-    public void setBookName(String bookName) {
-        this.bookName = bookName;
+    public void setBook_price(int book_price) {
+        this.book_price = book_price;
     }
 
-    public void setBookPrice(int bookPrice) {
-        this.bookPrice = bookPrice;
+    public void setBook_publish(String book_publish) {
+        this.book_publish = book_publish;
     }
 
-    public void setBookPublish(String bookPublish) {
-        this.bookPublish = bookPublish;
+    public void setBook_sort_id(int book_sort_id) {
+        this.book_sort_id = book_sort_id;
     }
 
-    public void setBookSortId(int bookSortId) {
-        this.bookSortId = bookSortId;
+    public void setBook_sum(int book_sum) {
+        this.book_sum = book_sum;
     }
 
-    public void setBookType(String bookType) {
-        this.bookType = bookType;
+    public void setBook_type(String book_type) {
+        this.book_type = book_type;
     }
-
-
 
     @Override
     public String toString() {
         return "BookInfo{" +
-                "bookId=" + bookId +
-                ", bookSortId=" + bookSortId +
-                ", bookName='" + bookName + '\'' +
-                ", bookAuthor='" + bookAuthor + '\'' +
-                ", bookPrice=" + bookPrice +
-                ", bookType='" + bookType + '\'' +
-                ", bookPublish='" + bookPublish + '\'' +
-                ", bookMark='" + bookMark + '\'' +
+                "book_id=" + book_id +
+                ", book_sort_id=" + book_sort_id +
+                ", book_name='" + book_name + '\'' +
+                ", book_author='" + book_author + '\'' +
+                ", book_price=" + book_price +
+                ", book_type='" + book_type + '\'' +
+                ", book_publish='" + book_publish + '\'' +
+                ", book_sum='" + book_sum + '\'' +
+                ", book_mark=" + book_mark +
                 '}';
     }
 }

@@ -7,7 +7,7 @@ import java.util.Map;
 
 
 public interface BookInfoService {
-    String getById(int bookId);
+    BookInfo getById(int bookId);
 
     List<BookInfo> getList();
 

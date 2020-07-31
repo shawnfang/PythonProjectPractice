@@ -25,7 +25,8 @@
         book_id = #{bookId}
     </select>
 
-
+    <!--如果没有resultMap的映射数据库表字段而使用resultType的时候，那么每个javabean实体类的字段需要
+    与数据库中表字段保持一致-->
     <select id="selectBook" resultType="com.library.lms.pojo.BookInfo">
         SELECT
         book_id,
@@ -39,7 +40,6 @@
         book_mark
         FROM
         book_info
-        ORDER BY
         LIMIT 10
     </select>
 
@@ -65,11 +65,11 @@
     </insert>
 
     <update id = "updateBook" parameterType="com.library.lms.pojo.BookInfo" >
-        update book_info set book_name = #{book_name} where book_id = #{book_id}
+        update book_info set book_name = #{book_name} where book_id = #{bookId}
     </update>
 
     <delete id = "deleteBook" parameterType="int" >
-        delete from book_info where book_id = #{book_id}
+        delete from book_info where book_id = #{bookId}
     </delete>
 
 </mapper>

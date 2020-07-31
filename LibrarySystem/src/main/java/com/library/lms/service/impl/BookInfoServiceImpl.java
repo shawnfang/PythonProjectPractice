@@ -24,7 +24,13 @@ public class BookInfoServiceImpl implements BookInfoService {
         return bookName;
     }
 
-    public String getById(int bookId) {
+    public BookInfo getById(int bookId) {
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if (bookInfo.getBook_id() == bookId) {
+                return bookInfo;
+            }
+        }
         return null;
     }
 
@@ -43,7 +49,8 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public List<BookInfo> selectBook() {
-        return bookInfoMapper.selectBook();
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        return bookInfos;
     }
 
     public boolean deleteBook(int bookId) {
@@ -57,7 +64,7 @@ public class BookInfoServiceImpl implements BookInfoService {
     public BookInfo getBookId(int bookId) {
         List<BookInfo> bookInfos = bookInfoMapper.selectBook();
         for (BookInfo bookInfo: bookInfos){
-            if (bookInfo.getBookId() == bookId) {
+            if (bookInfo.getBook_id() == bookId) {
                 return bookInfo;
             }
         }

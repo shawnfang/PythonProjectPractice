@@ -3,16 +3,12 @@ package com.library.lms.web;
 import com.alibaba.fastjson.JSON;
 import com.library.lms.pojo.BookInfo;
 import com.library.lms.service.BookInfoService;
+import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +18,15 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
     private final static Logger logger = LoggerFactory.getLogger(BookInfoController.class);
-    @GetMapping("/book")
-    private String list() {
-        String bookInfos = bookInfoService.getById(1);
-        logger.info("hello,world");
-        return bookInfos;
+    @GetMapping("/book/{id}")
+    private String getId(@PathVariable("id") int id) {
+        BookInfo bookInfos = bookInfoService.getById(id);
+        String jsonObj = JSON.toJSONString(bookInfos);
+        if (bookInfos == null) {
+            return "没有找到对应的书籍";
+        }else {
+            return jsonObj;
+        }
     }
 
     @GetMapping("/bookinfo")
@@ -36,20 +36,27 @@ public class BookInfoController {
         return bo;
     }
 
-    @PostMapping("addbook")
+    @PostMapping("/addbook")
     private boolean addBook(@RequestBody Map params){
         boolean addresult = false;
         BookInfo bookInfo = new BookInfo();
-        bookInfo.setBookName((String) params.get("name"));
-        bookInfo.setBookAuthor((String) params.get("author"));
-        bookInfo.setBookPrice((Integer) params.get("price"));
-        bookInfo.setBookPublish((String) params.get("publish"));
-        bookInfo.setBookType((String) params.get("type"));
-        bookInfo.setBookSum((Integer) params.get("sum"));
-        bookInfo.setBookSortId((Integer) params.get("sortid"));
+        bookInfo.setBook_name((String) params.get("name"));
+        bookInfo.setBook_author((String) params.get("author"));
+        bookInfo.setBook_price((Integer) params.get("price"));
+        bookInfo.setBook_publish((String) params.get("publish"));
+        bookInfo.setBook_type((String) params.get("type"));
+        bookInfo.setBook_sum((Integer) params.get("sum"));
+        bookInfo.setBook_sort_id((Integer) params.get("sortid"));
         if (bookInfoService.insertBook(bookInfo)) {
             addresult = true;
         }
         return addresult;
+    }
+
+    @GetMapping("/booklist")
+    private List booklist(){
+        List<BookInfo> bookInfos = bookInfoService.selectBook();
+        logger.info("bookinfos"+ bookInfos.get(0).toString());
+        return bookInfos;
     }
 }
