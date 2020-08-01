@@ -84,10 +84,22 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean borrowBook(BookInfo book) {
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if ((bookInfo.getBook_id() == book.getBook_id()) && (bookInfo.getBook_mark() == 0)) {
+                    return bookInfoMapper.updateBook(book);
+                }
+            }
         return false;
     }
 
     public boolean repayBook(BookInfo book) {
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if ((bookInfo.getBook_id() == book.getBook_id()) && (bookInfo.getBook_mark() == 1)) {
+                return bookInfoMapper.updateBook(book);
+            }
+        }
         return false;
     }
 }

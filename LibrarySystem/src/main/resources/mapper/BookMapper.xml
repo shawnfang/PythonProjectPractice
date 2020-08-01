@@ -73,6 +73,7 @@
             <if test="book_type !=null"> book_type = #{book_type},</if>
             <if test="book_publish !=null"> book_publish = #{book_publish},</if>
             <if test="book_sum !=null"> book_sum = #{book_sum},</if>
+            <if test="book_mark !=null"> book_mark = #{book_mark},</if>
         </set>
         where book_id = #{book_id}
     </update>

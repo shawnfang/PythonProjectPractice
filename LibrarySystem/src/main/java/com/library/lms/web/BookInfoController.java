@@ -64,6 +64,55 @@ public class BookInfoController {
         return addresult;
     }
 
+    @RequestMapping("/borrowbook")
+    private String borrowBook(@RequestBody Map params){
+        BookInfo bookInfo = new BookInfo();
+        if(params.containsKey("id")){
+            bookInfo.setBook_id((Integer) params.get("id"));
+        }else {
+            return "没有该ID的书籍可以借阅";
+        }
+        if(params.containsKey("borrow")){
+            if ((Integer) params.get("borrow") == 1 || (Integer) params.get("borrow") == 0) {
+                bookInfo.setBook_mark((Integer) params.get("borrow"));
+            }else {
+                return "参数错误";
+            }
+        }else {
+            return "参数错误";
+        }
+        if (bookInfoService.borrowBook(bookInfo)) {
+            return "借阅成功";
+        }else {
+            return  "借阅失败";
+        }
+    }
+
+    @RequestMapping("/repaybook")
+    private String repayBook(@RequestBody Map params){
+        BookInfo bookInfo = new BookInfo();
+        if(params.containsKey("id")){
+            bookInfo.setBook_id((Integer) params.get("id"));
+        }else {
+            return "没有该ID的书籍需要归还";
+        }
+        if(params.containsKey("repay")){
+            if ((Integer) params.get("repay") == 1 || (Integer) params.get("repay") == 0) {
+                bookInfo.setBook_mark((Integer) params.get("repay"));
+            }else {
+                return "参数错误";
+            }
+        }else {
+            return "参数错误";
+        }
+        if (bookInfoService.repayBook(bookInfo)) {
+            return "归还成功";
+        }else {
+            return  "归还失败";
+        }
+    }
+
+
     @PostMapping("/updatebook")
     private boolean updateBook(@RequestBody Map params){
         boolean updateResult = false;
