@@ -54,10 +54,22 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean deleteBook(int bookId) {
-        return bookInfoMapper.deleteBook(bookId);
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if (bookInfo.getBook_id() == bookId) {
+                return bookInfoMapper.deleteBook(bookId);
+            }
+        }
+        return false;
     }
 
     public boolean updateBook(BookInfo book) {
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if (bookInfo.getBook_id() == book.getBook_id()) {
+                return bookInfoMapper.updateBook(book);
+            }
+        }
         return false;
     }
 

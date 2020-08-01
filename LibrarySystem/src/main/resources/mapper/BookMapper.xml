@@ -55,17 +55,26 @@
         book_publish,
         book_sum)
         VALUES (
-        #{bookSortId},
-        #{bookName},
-        #{bookAuthor},
-        #{bookPrice},
-        #{bookType},
-        #{bookPublish},
-        #{bookSum});
+        #{book_sort_id},
+        #{book_name},
+        #{book_author},
+        #{book_price},
+        #{book_type},
+        #{book_publish},
+        #{book_sum});
     </insert>
 
     <update id = "updateBook" parameterType="com.library.lms.pojo.BookInfo" >
-        update book_info set book_name = #{book_name} where book_id = #{bookId}
+        update book_info
+        <set>
+            <if test="book_name !=null"> book_name = #{book_name},</if>
+            <if test="book_author !=null"> book_author = #{book_author},</if>
+            <if test="book_price !=null"> book_price = #{book_price},</if>
+            <if test="book_type !=null"> book_type = #{book_type},</if>
+            <if test="book_publish !=null"> book_publish = #{book_publish},</if>
+            <if test="book_sum !=null"> book_sum = #{book_sum},</if>
+        </set>
+        where book_id = #{book_id}
     </update>
 
     <delete id = "deleteBook" parameterType="int" >

@@ -18,6 +18,17 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
     private final static Logger logger = LoggerFactory.getLogger(BookInfoController.class);
+
+    @GetMapping("/deletebook/{id}")
+    private Boolean deleteId(@PathVariable("id") int id) {
+        boolean deleteResult = bookInfoService.deleteBook(id);
+        if (deleteResult) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     @GetMapping("/book/{id}")
     private String getId(@PathVariable("id") int id) {
         BookInfo bookInfos = bookInfoService.getById(id);
@@ -51,6 +62,39 @@ public class BookInfoController {
             addresult = true;
         }
         return addresult;
+    }
+
+    @PostMapping("/updatebook")
+    private boolean updateBook(@RequestBody Map params){
+        boolean updateResult = false;
+        BookInfo bookInfo = new BookInfo();
+        if(params.containsKey("id")){
+            bookInfo.setBook_id((Integer) params.get("id"));
+        }else {
+            return false;
+        }
+        if(params.containsKey("name")){
+            bookInfo.setBook_name((String) params.get("name"));
+        }
+        if(params.containsKey("author")){
+            bookInfo.setBook_author((String) params.get("author"));
+        }
+        if(params.containsKey("price")){
+            bookInfo.setBook_price((Integer) params.get("price"));
+        }
+        if(params.containsKey("publish")){
+            bookInfo.setBook_publish((String) params.get("publish"));
+        }
+        if(params.containsKey("type")){
+            bookInfo.setBook_type((String) params.get("type"));
+        }
+        if(params.containsKey("sum")){
+            bookInfo.setBook_sum((Integer) params.get("sum"));
+        }
+        if (bookInfoService.updateBook(bookInfo)) {
+            updateResult = true;
+        }
+        return updateResult;
     }
 
     @GetMapping("/booklist")
