@@ -1,50 +1,50 @@
 package com.library.lms.pojo;
 
 public class BookSort {
-    private int bookSortId;
-    private String bookSortName;
-    private String bookSortExtend;
-    private String bookSortMark;
+    private int book_sort_id;
+    private String book_sort_name;
+    private String book_sort_extend;
+    private String book_sort_mark;
 
-    public int getBookSortId() {
-        return bookSortId;
+    public void setBook_sort_id(int book_sort_id) {
+        this.book_sort_id = book_sort_id;
     }
 
-    public void setBookSortId(int bookSortId) {
-        this.bookSortId = bookSortId;
+    public int getBook_sort_id() {
+        return book_sort_id;
     }
 
-    public String getBookSortExtend() {
-        return bookSortExtend;
+    public String getBook_sort_extend() {
+        return book_sort_extend;
     }
 
-    public String getBookSortMark() {
-        return bookSortMark;
+    public String getBook_sort_mark() {
+        return book_sort_mark;
     }
 
-    public String getBookSortName() {
-        return bookSortName;
+    public String getBook_sort_name() {
+        return book_sort_name;
     }
 
-    public void setBookSortExtend(String bookSortExtend) {
-        this.bookSortExtend = bookSortExtend;
+    public void setBook_sort_extend(String book_sort_extend) {
+        this.book_sort_extend = book_sort_extend;
     }
 
-    public void setBookSortMark(String bookSortMark) {
-        this.bookSortMark = bookSortMark;
+    public void setBook_sort_mark(String book_sort_mark) {
+        this.book_sort_mark = book_sort_mark;
     }
 
-    public void setBookSortName(String bookSortName) {
-        this.bookSortName = bookSortName;
+    public void setBook_sort_name(String book_sort_name) {
+        this.book_sort_name = book_sort_name;
     }
 
     @Override
     public String toString() {
         return "BookSort{" +
-                "bookSortId=" + bookSortId +
-                ", bookSortName='" + bookSortName + '\'' +
-                ", bookSortExtend='" + bookSortExtend + '\'' +
-                ", bookSortMark='" + bookSortMark + '\'' +
+                "book_sort_id=" + book_sort_id +
+                ", book_sort_name='" + book_sort_name + '\'' +
+                ", book_sort_extend='" + book_sort_extend + '\'' +
+                ", book_sort_mark='" + book_sort_mark + '\'' +
                 '}';
     }
 }

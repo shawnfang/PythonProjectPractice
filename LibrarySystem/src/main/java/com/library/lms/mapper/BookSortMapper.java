@@ -12,7 +12,7 @@ public interface BookSortMapper {
      * @param bookSort  图书类别的信息
      * @return true表示插入成功，false表示插入失败
      */
-    public boolean insertBookSort(BookSort bookSort);
+    public boolean addBookSort(BookSort bookSort);
 
 
     /***
@@ -20,14 +20,14 @@ public interface BookSortMapper {
      * @param bookSort
      * @return
      */
-    public List<BookSort> selectBookSort(BookSort bookSort);
+    public List<BookSort> selectBookSort();
 
     /***
      * 删除，可做假删除，也可以做真删除
-     * @param bookSort
+     * @param bookSortId
      * @return
      */
-    public boolean deleteBookSort(BookSort bookSort);
+    public boolean deleteBookSort(int bookSortId);
 
     /***
      * 图书类别修改的方法
@@ -38,8 +38,9 @@ public interface BookSortMapper {
 
     /**
      * 根据图书类别id进行查询操作
-     * @param bookSort
+     * @param bookSortId
      * @return
      */
-    public BookSort getBookSortId(BookSort bookSort);
+    public BookSort getBookSortId(int bookSortId);
+
 }

@@ -19,14 +19,14 @@ public interface BookSortService {
      * @param bookSort
      * @return
      */
-    public List<BookSort> selectBookSort(BookSort bookSort);
+    public List<BookSort> selectBookSort();
 
     /***
      * 删除，可做假删除，也可以做真删除
      * @param bookSort
      * @return
      */
-    public boolean deleteBookSort(BookSort bookSort);
+    public boolean deleteBookSort(int bookSortId);
 
     /***
      * 图书类别修改的方法
@@ -40,6 +40,6 @@ public interface BookSortService {
      * @param bookSort
      * @return
      */
-    public BookSort getBookSortId(BookSort bookSort);
+    public BookSort getBookSortId(int bookSortId);
 
 }
