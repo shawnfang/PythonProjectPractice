@@ -37,7 +37,7 @@
         VALUES (
         #{book_sort_name},
         #{book_sort_extend},
-        #{book_sort_mark};
+        #{book_sort_mark});
     </insert>
 
     <update id = "updateBookSort" parameterType="com.library.lms.pojo.BookSort" >

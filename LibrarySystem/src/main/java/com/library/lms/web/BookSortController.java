@@ -22,27 +22,65 @@ public class BookSortController {
 
     @PostMapping("/addbooksort")
     private boolean addBookSort(@RequestBody Map params){
-        return true;
+        boolean addResult = false;
+        BookSort bookSort = new BookSort();
+        bookSort.setBook_sort_name((String)params.get("sortname"));
+        bookSort.setBook_sort_extend((String)params.get("sortextend"));
+        bookSort.setBook_sort_mark((String)params.get("sortmark"));
+        if (bookSortService.insertBookSort(bookSort)) {
+            addResult = true;
+        }
+        return addResult;
     }
 
     @PostMapping("updatebooksort")
     private boolean updateBookSort(@RequestBody Map params){
-        return true;
+        boolean updateResult = false;
+        BookSort bookSort = new BookSort();
+        if(params.containsKey("id")){
+            bookSort.setBook_sort_id((Integer) params.get("id"));
+        }else {
+            return false;
+        }
+        if (params.containsKey("sortname")) {
+            bookSort.setBook_sort_name((String)params.get("sortname"));
+        }
+        if (params.containsKey("sortextend")) {
+            bookSort.setBook_sort_extend((String)params.get("sortextend"));
+        }
+        if(params.containsKey("sortmark")){
+            bookSort.setBook_sort_mark((String)params.get("sortmark"));
+        }
+        if(bookSortService.updateBookSort(bookSort)){
+            updateResult = true;
+        }
+        return updateResult;
     }
 
     @GetMapping("getbooksort/{id}")
-    private String getbooksort(){
-        return null;
+    private String getbooksort(@PathVariable("id") int id){
+        BookSort bookSort = bookSortService.getBookSortId(id);
+        String jsonObj = JSON.toJSONString(bookSort);
+        if (bookSort == null) {
+            return "没找到对应类目";
+        }else {
+            return jsonObj;
+        }
     }
 
     @DeleteMapping("deletebooksort/{id}")
-    private boolean deletebooksort(){
-        return false;
+    private boolean deletebooksort(@PathVariable("id") int id){
+        if(bookSortService.deleteBookSort(id)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     @GetMapping("booksortlist")
     private List booksortlist(){
-        return null;
+        List<BookSort> bookSorts = bookSortService.selectBookSort();
+        return bookSorts;
     }
 
 }
