@@ -11,7 +11,7 @@ public interface UserInfoMapper {
      * @param user
      * @return
      */
-    public UserInfo login(UserInfo user);
+    public boolean login(UserInfo userInfo);
 
     /***
      * 查询用户的信息
@@ -19,7 +19,7 @@ public interface UserInfoMapper {
      * @param arr
      * @return
      */
-    public List<UserInfo> selectUser(UserInfo user);
+    public List<UserInfo> selectUser();
 
     /**
      * 根据用户id进行查询操作
@@ -27,12 +27,12 @@ public interface UserInfoMapper {
      * @param userId
      * @return
      */
-    public UserInfo getUserId(Integer userId);
+    public UserInfo getUserId(int userId);
 
 
     public boolean addUser(UserInfo user);
 
-    public boolean deleteUser(UserInfo userInfo);
+    public boolean deleteUser(int id);
 
     public boolean updateUser(UserInfo userInfo);
 }

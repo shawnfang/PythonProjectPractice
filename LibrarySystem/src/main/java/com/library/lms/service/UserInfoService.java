@@ -26,7 +26,7 @@ public interface UserInfoService {
 	 * @param user
 	 * @return
 	 */
-	public UserInfo login(UserInfo user);
+	public boolean login(UserInfo user);
 	
 	
 	/***
@@ -34,14 +34,14 @@ public interface UserInfoService {
 	 * @param user
 	 * @return
 	 */
-	public List<UserInfo> selectUser(UserInfo user);
+	public List<UserInfo> selectUser();
 	
 	/***
 	 * 删除，可做假删除，也可以做真删除
 	 * @param userId
 	 * @return
 	 */
-	public boolean deleteUser(UserInfo user);
+	public boolean deleteUser(int user_id);
 	
 	/***
 	 * 用户修改的方法
@@ -55,7 +55,7 @@ public interface UserInfoService {
 	 * @param user
 	 * @return
 	 */
-	public UserInfo getUserId(UserInfo user);
+	public UserInfo getUserId(int user_id);
 	
 	
 	/***

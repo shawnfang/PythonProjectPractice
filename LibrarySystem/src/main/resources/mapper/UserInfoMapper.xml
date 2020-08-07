@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.library.lms.mapper.UserInfoMapper">
+    <select id="login" parameterType="com.library.lms.pojo.UserInfo" resultType="java.lang.Boolean">
+        select * from user_info where user_account=#{user_account} and user_pw=#{user_pw};
+    </select>
+
+    <select id="selectUser" resultType="com.library.lms.pojo.UserInfo">
+        select  * from user_info limit 10;
+    </select>
+
+    <select id="getUserId" resultType="com.library.lms.pojo.UserInfo" parameterType="int">
+        select * from user_info where user_id = #{user_id};
+    </select>
+
+    <insert id="addUser" parameterType="com.library.lms.pojo.UserInfo">
+        INSERT INTO
+        user_info (user_account,user_pw,user_number,user_name,user_age,user_sex,user_mark)
+        VALUES (#{user_account},#{user_pw},#{user_number},#{user_name},#{user_age},#{user_sex},#{user_mark});
+    </insert>
+
+    <delete id="deleteUser" parameterType="int">
+        delete from user_info where user_id=#{user_id};
+    </delete>
+
+    <update id="updateUser" parameterType="com.library.lms.pojo.UserInfo">
+        update user_info
+        <set>
+            <if test="user_number !=null"> user_number = #{user_number},</if>
+            <if test="user_name !=null"> user_name = #{user_name},</if>
+            <if test="user_age !=null"> user_age = #{user_age},</if>
+            <if test="user_sex !=null"> user_sex = #{user_sex},</if>
+            <if test="user_mark !=null"> user_mark = #{user_mark},</if>
+        </set>
+        where user_id = #{user_id};
+    </update>
+
+</mapper>

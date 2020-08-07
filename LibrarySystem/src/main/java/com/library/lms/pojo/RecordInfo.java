@@ -3,10 +3,10 @@ package com.library.lms.pojo;
 import java.util.Date;
 
 public class RecordInfo {
-    private int recordId;
+    private int record_id;
     private BookInfo bookInfo;
     private UserInfo userInfo;
-    private Date dateTime;
+    private Date record_time;
 
     public BookInfo getBookInfo() {
         return bookInfo;
@@ -25,31 +25,31 @@ public class RecordInfo {
     }
 
 
-    public Date getDateTime() {
-        return dateTime;
+    public Date getRecord_time() {
+        return record_time;
     }
 
 
-    public int getRecordId() {
-        return recordId;
+    public int getRecord_id() {
+        return record_id;
     }
 
 
-    public void setDateTime(Date dateTime) {
-        this.dateTime = dateTime;
+    public void setRecord_time(Date dateTime) {
+        this.record_time = dateTime;
     }
 
-    public void setRecordId(int recordId) {
-        this.recordId = recordId;
+    public void setRecord_id(int recordId) {
+        this.record_id = recordId;
     }
 
     @Override
     public String toString() {
         return "RecordInfo{" +
-                "recordId=" + recordId +
+                "record_id=" + record_id +
                 ", bookInfo=" + bookInfo +
                 ", userInfo=" + userInfo +
-                ", dateTime=" + dateTime +
+                ", record_time=" + record_time +
                 '}';
     }
 
