@@ -1,7 +1,10 @@
 package com.library.lms.pojo;
 
+import org.springframework.stereotype.Component;
+
 import java.util.Date;
 
+@Component
 public class RecordInfo {
     private int record_id;
     private BookInfo bookInfo;

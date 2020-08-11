@@ -1,11 +1,16 @@
 package com.library.lms.service.impl;
 
+import com.library.lms.mapper.UserInfoMapper;
 import com.library.lms.pojo.BookInfo;
 import com.library.lms.mapper.BookInfoMapper;
+import com.library.lms.pojo.UserInfo;
 import com.library.lms.service.BookInfoService;
+import com.library.lms.service.RecordInfoService;
+import com.library.lms.util.UserRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +21,12 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     @Autowired
     private BookInfoMapper bookInfoMapper;
+
+    @Autowired
+    private UserInfoMapper userInfoMapper;
+
+    @Autowired
+    private RecordInfoService recordInfoService;
 
     private final static Logger logger = LoggerFactory.getLogger(BookInfoServiceImpl.class);
     public String getByIds(int bookId) {
@@ -84,22 +95,59 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean borrowBook(BookInfo book) {
+        boolean borrowResult = false;
+        BookInfo selectBookId = bookInfoMapper.getBookId(book.getBook_id());
+        if(selectBookId.getBook_sum()<0){
+            return borrowResult;
+        }
+        int bookTotal = selectBookId.getBook_sum()-1;
+        book.setBook_sum(bookTotal);
+        String username = UserRequest.getCurrentUser();
+        UserInfo userInfoNew = new UserInfo();
+        List<UserInfo> userInfos = userInfoMapper.selectUser();
+        for (UserInfo userInfo:userInfos){
+            if (userInfo.getUser_name().equals(username)) {
+                userInfoNew.setUser_name(username);
+                userInfoNew.setUser_id(userInfo.getUser_id());
+            }
+        }
+        logger.info("token解析的用户名："+username);
+        logger.info("用户名："+userInfoNew.getUser_name());
         List<BookInfo> bookInfos = bookInfoMapper.selectBook();
         for (BookInfo bookInfo:bookInfos){
-            if ((bookInfo.getBook_id() == book.getBook_id()) && (bookInfo.getBook_mark() == 0)) {
-                    return bookInfoMapper.updateBook(book);
+            if ((bookInfo.getBook_id() == book.getBook_id())) {
+                    if(bookInfoMapper.updateBook(book)){
+                        borrowResult = true;
+                        recordInfoService.addRecordInfo(bookInfo,userInfoNew);
+                    }
                 }
             }
-        return false;
+        return borrowResult;
     }
 
     public boolean repayBook(BookInfo book) {
-        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
-        for (BookInfo bookInfo:bookInfos){
-            if ((bookInfo.getBook_id() == book.getBook_id()) && (bookInfo.getBook_mark() == 1)) {
-                return bookInfoMapper.updateBook(book);
+        boolean repayResult = false;
+        BookInfo selectBookId = bookInfoMapper.getBookId(book.getBook_id());
+        int bookTotal = selectBookId.getBook_sum()+1;
+        book.setBook_sum(bookTotal);
+        String username = UserRequest.getCurrentUser();
+        UserInfo userInfoNew = new UserInfo();
+        List<UserInfo> userInfos = userInfoMapper.selectUser();
+        for (UserInfo userInfo:userInfos){
+            if (userInfo.getUser_name().equals(username)) {
+                userInfoNew.setUser_name(username);
+                userInfoNew.setUser_id(userInfo.getUser_id());
             }
         }
-        return false;
+        List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        for (BookInfo bookInfo:bookInfos){
+            if ((bookInfo.getBook_id() == book.getBook_id())) {
+                if(bookInfoMapper.updateBook(book)){
+                    repayResult = true;
+                    recordInfoService.addRecordInfo(bookInfo,userInfoNew);
+                }
+            }
+        }
+        return repayResult;
     }
 }

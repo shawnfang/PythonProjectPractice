@@ -8,7 +8,9 @@ import com.library.lms.pojo.UserInfo;
 import com.library.lms.web.BookSortController;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import io.jsonwebtoken.Claims;
 
+import javax.crypto.SecretKey;
 import java.util.Date;
 
 public class TokenUtil {
@@ -64,4 +66,9 @@ public class TokenUtil {
 
     }
 
+    public static String parseToken(String token){
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).withIssuer("auth0").build();
+        DecodedJWT jwt = verifier.verify(token);
+        return jwt.getClaim("username").asString();
+    }
 }

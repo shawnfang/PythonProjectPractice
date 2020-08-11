@@ -5,10 +5,10 @@
 
 <mapper namespace="com.library.lms.mapper.BookInfoMapper">
     <!-- 目的：为dao接口方法提供sql语句配置 -->
-    <select id="getBookId" resultType="java.lang.String" parameterType="int">
+    <select id="getBookId" resultType="com.library.lms.pojo.BookInfo" parameterType="int">
         <!-- 具体的sql -->
         SELECT
-        book_name
+        *
         FROM
         book_info
         WHERE

@@ -1,5 +1,8 @@
 package com.library.lms.pojo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class UserInfo {
     private int user_id;
     private String user_account;

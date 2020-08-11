@@ -3,12 +3,14 @@ package com.library.lms.web;
 import com.alibaba.fastjson.JSON;
 import com.library.lms.pojo.BookInfo;
 import com.library.lms.service.BookInfoService;
+import com.library.lms.util.TokenUtil;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 import java.util.Map;
 
@@ -18,6 +20,9 @@ public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
     private final static Logger logger = LoggerFactory.getLogger(BookInfoController.class);
+
+    @Autowired
+    private HttpServletRequest request;
 
     @GetMapping("/deletebook/{id}")
     private Boolean deleteId(@PathVariable("id") int id) {
@@ -72,13 +77,7 @@ public class BookInfoController {
         }else {
             return "没有该ID的书籍可以借阅";
         }
-        if(params.containsKey("borrow")){
-            if ((Integer) params.get("borrow") == 1 || (Integer) params.get("borrow") == 0) {
-                bookInfo.setBook_mark((Integer) params.get("borrow"));
-            }else {
-                return "参数错误";
-            }
-        }else {
+        if(!params.containsKey("borrow")){
             return "参数错误";
         }
         if (bookInfoService.borrowBook(bookInfo)) {
@@ -96,13 +95,7 @@ public class BookInfoController {
         }else {
             return "没有该ID的书籍需要归还";
         }
-        if(params.containsKey("repay")){
-            if ((Integer) params.get("repay") == 1 || (Integer) params.get("repay") == 0) {
-                bookInfo.setBook_mark((Integer) params.get("repay"));
-            }else {
-                return "参数错误";
-            }
-        }else {
+        if(!params.containsKey("repay")){
             return "参数错误";
         }
         if (bookInfoService.repayBook(bookInfo)) {
@@ -148,6 +141,9 @@ public class BookInfoController {
 
     @GetMapping("/booklist")
     private List booklist(){
+        String token = request.getHeader("token");
+        String username = TokenUtil.parseToken(token);
+        logger.info("用户名："+username);
         List<BookInfo> bookInfos = bookInfoService.selectBook();
         logger.info("bookinfos"+ bookInfos.get(0).toString());
         return bookInfos;

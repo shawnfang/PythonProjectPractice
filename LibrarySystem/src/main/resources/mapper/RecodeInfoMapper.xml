@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.library.lms.mapper.RecordInfoMapper">
+
+    <select id="selectRecord" resultType="com.library.lms.pojo.RecordInfo">
+        select  * from record_info limit 10;
+    </select>
+
+    <insert id="addRecord" parameterType="com.library.lms.pojo.RecordInfo">
+        INSERT INTO
+        record_info (user_id,user_name,book_id,book_name,book_author,book_price,book_type,
+        book_publish,book_mark,record_time)
+        VALUES (#{userInfo.user_id},#{userInfo.user_name},#{bookInfo.book_id},#{bookInfo.book_name},#{bookInfo.book_author},#{bookInfo.book_price},
+        #{bookInfo.book_type},#{bookInfo.book_publish},#{bookInfo.book_mark},#{record_time});
+    </insert>
+
+</mapper>

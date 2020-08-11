@@ -1,5 +1,8 @@
 package com.library.lms.pojo;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class BookInfo {
     private int book_id;
     private int book_sort_id;
