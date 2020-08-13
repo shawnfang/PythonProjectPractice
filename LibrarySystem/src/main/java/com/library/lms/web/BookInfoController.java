@@ -3,6 +3,7 @@ package com.library.lms.web;
 import com.alibaba.fastjson.JSON;
 import com.library.lms.pojo.BookInfo;
 import com.library.lms.service.BookInfoService;
+import com.library.lms.util.ApiResult;
 import com.library.lms.util.TokenUtil;
 import net.sf.json.JSONObject;
 import org.slf4j.Logger;
@@ -25,35 +26,35 @@ public class BookInfoController {
     private HttpServletRequest request;
 
     @GetMapping("/deletebook/{id}")
-    private Boolean deleteId(@PathVariable("id") int id) {
+    private ApiResult<?> deleteId(@PathVariable("id") int id) {
         boolean deleteResult = bookInfoService.deleteBook(id);
         if (deleteResult) {
-            return true;
+            return ApiResult.newSuccess(true);
         }else {
-            return false;
+            return ApiResult.newError("删除失败");
         }
     }
 
     @GetMapping("/book/{id}")
-    private String getId(@PathVariable("id") int id) {
+    private ApiResult<?> getId(@PathVariable("id") int id) {
         BookInfo bookInfos = bookInfoService.getById(id);
         String jsonObj = JSON.toJSONString(bookInfos);
         if (bookInfos == null) {
-            return "没有找到对应的书籍";
+            return ApiResult.newError("没有找到对应的书籍");
         }else {
-            return jsonObj;
+            return ApiResult.newSuccess(jsonObj);
         }
     }
 
     @GetMapping("/bookinfo")
-    private String getBookInfos(){
+    private ApiResult<?> getBookInfos(){
         Map<String,Object> bookInfo = bookInfoService.getBookInfo(1);
         String bo = JSON.toJSONString(bookInfo);
-        return bo;
+        return ApiResult.newSuccess(bo);
     }
 
     @PostMapping("/addbook")
-    private boolean addBook(@RequestBody Map params){
+    private ApiResult<?> addBook(@RequestBody Map params){
         boolean addresult = false;
         BookInfo bookInfo = new BookInfo();
         bookInfo.setBook_name((String) params.get("name"));
@@ -66,54 +67,54 @@ public class BookInfoController {
         if (bookInfoService.insertBook(bookInfo)) {
             addresult = true;
         }
-        return addresult;
+        return ApiResult.newSuccess(addresult);
     }
 
     @RequestMapping("/borrowbook")
-    private String borrowBook(@RequestBody Map params){
+    private ApiResult<?> borrowBook(@RequestBody Map params){
         BookInfo bookInfo = new BookInfo();
         if(params.containsKey("id")){
             bookInfo.setBook_id((Integer) params.get("id"));
         }else {
-            return "没有该ID的书籍可以借阅";
+            return ApiResult.newError("没有该ID的书籍可以借阅");
         }
         if(!params.containsKey("borrow")){
-            return "参数错误";
+            return ApiResult.newError("参数错误");
         }
         if (bookInfoService.borrowBook(bookInfo)) {
-            return "借阅成功";
+            return ApiResult.newSuccess("借阅成功");
         }else {
-            return  "借阅失败";
+            return  ApiResult.newSuccess("借阅失败");
         }
     }
 
     @RequestMapping("/repaybook")
-    private String repayBook(@RequestBody Map params){
+    private ApiResult<?> repayBook(@RequestBody Map params){
         BookInfo bookInfo = new BookInfo();
         if(params.containsKey("id")){
             bookInfo.setBook_id((Integer) params.get("id"));
         }else {
-            return "没有该ID的书籍需要归还";
+            return ApiResult.newError("没有该ID的书籍需要归还");
         }
         if(!params.containsKey("repay")){
-            return "参数错误";
+            return ApiResult.newError("参数错误");
         }
         if (bookInfoService.repayBook(bookInfo)) {
-            return "归还成功";
+            return ApiResult.newSuccess("归还成功");
         }else {
-            return  "归还失败";
+            return  ApiResult.newSuccess("归还失败");
         }
     }
 
 
     @PostMapping("/updatebook")
-    private boolean updateBook(@RequestBody Map params){
+    private ApiResult<?> updateBook(@RequestBody Map params){
         boolean updateResult = false;
         BookInfo bookInfo = new BookInfo();
         if(params.containsKey("id")){
             bookInfo.setBook_id((Integer) params.get("id"));
         }else {
-            return false;
+            return ApiResult.newError("参数错误");
         }
         if(params.containsKey("name")){
             bookInfo.setBook_name((String) params.get("name"));
@@ -136,16 +137,16 @@ public class BookInfoController {
         if (bookInfoService.updateBook(bookInfo)) {
             updateResult = true;
         }
-        return updateResult;
+        return ApiResult.newSuccess(updateResult);
     }
 
     @GetMapping("/booklist")
-    private List booklist(){
+    private ApiResult<?> booklist(){
         String token = request.getHeader("token");
         String username = TokenUtil.parseToken(token);
         logger.info("用户名："+username);
         List<BookInfo> bookInfos = bookInfoService.selectBook();
         logger.info("bookinfos"+ bookInfos.get(0).toString());
-        return bookInfos;
+        return ApiResult.newSuccess(bookInfos);
     }
 }

@@ -6,6 +6,7 @@ import com.library.lms.pojo.BookSort;
 import com.library.lms.pojo.UserInfo;
 import com.library.lms.service.BookSortService;
 import com.library.lms.service.UserInfoService;
+import com.library.lms.util.ApiResult;
 import com.library.lms.util.TokenUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,7 +25,7 @@ public class UserInfoController {
     private UserInfoService userInfoService;
     private final static Logger logger = LoggerFactory.getLogger(BookSortController.class);
     @PostMapping("/login")
-    private String login(@RequestBody Map params){
+    private ApiResult<?> login(@RequestBody Map params){
         Map<String,Object> map = new HashMap<>();
         UserInfo userInfo = new UserInfo();
         userInfo.setUser_account((String) params.get("account"));
@@ -36,9 +37,9 @@ public class UserInfoController {
                 map.put("message", "认证成功");
                 map.put("token", token);
                 String jsonObj = JSON.toJSONString(map);
-                return jsonObj;
+                return ApiResult.newSuccess(jsonObj);
             }
         }
-        return null;
+        return ApiResult.newError(null);
     }
 }
