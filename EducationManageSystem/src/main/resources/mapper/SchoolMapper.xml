@@ -6,16 +6,14 @@
 <mapper namespace="com.education.system.mapper.SchoolInfoMapper">
     <resultMap id="schoolListResult" type="com.education.system.pojo.SchoolInfo">
         <id column="id"  property="id"/>
-        <result column="account" jdbcType="VARCHAR" property="account"/>
-        <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="schoolname" jdbcType="VARCHAR" property="schoolName"/>
-        <result column="schoolcontactor" jdbcType="VARCHAR" property="schoolContactor"/>
-        <result column="schoolphone" jdbcType="INTEGER" property="schoolPhone"/>
+        <result column="schoolName" jdbcType="VARCHAR" property="schoolName"/>
+        <result column="schoolContactor" jdbcType="VARCHAR" property="schoolContactor"/>
+        <result column="schoolPhone" jdbcType="VARCHAR" property="schoolPhone"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
     </resultMap>
 
     <select id="schoolList" resultMap="schoolListResult">
-        select * from edu_school;
+        select id,schoolName,schoolContactor,schoolPhone,status from edu_school;
     </select>
 
     <select id="searchSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" resultMap="schoolListResult">
@@ -39,8 +37,8 @@
 
     <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
         INSERT INTO
-        edu_school (account,password,schoolname,schoolcontactor,schoolphone,status)
-        VALUES (#{account},#{password},#{schoolname},#{schoolcontactor},#{schoolphone},#{status});
+        edu_school (account,password,schoolName,schoolContactor,schoolPhone,status)
+        VALUES (#{account},#{password},#{schoolName},#{schoolContactor},#{schoolPhone},#{status});
     </insert>
 
     <update id="updateSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">

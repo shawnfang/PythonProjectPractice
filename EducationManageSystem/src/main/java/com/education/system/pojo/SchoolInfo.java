@@ -7,8 +7,6 @@ import org.springframework.stereotype.Component;
 @Data
 public class SchoolInfo {
     private int id;
-    private String account;
-    private String password;
     private String schoolName;
     private String schoolContactor;
     private String schoolPhone;

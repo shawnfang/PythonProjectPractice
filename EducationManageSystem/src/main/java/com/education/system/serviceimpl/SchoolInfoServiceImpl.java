@@ -1,5 +1,6 @@
 package com.education.system.serviceimpl;
 
+import cn.hutool.crypto.SecureUtil;
 import com.education.system.mapper.SchoolInfoMapper;
 import com.education.system.pojo.SchoolInfo;
 import org.slf4j.Logger;
@@ -17,12 +18,15 @@ public class SchoolInfoServiceImpl {
 
     private final static Logger logger = LoggerFactory.getLogger(SchoolInfoServiceImpl.class);
 
-    public String getSchoolInfoList(){
+    public List<SchoolInfo> getSchoolInfoList(){
+        List<SchoolInfo> schoolInfos = schoolInfoMapper.schoolList();
         return schoolInfoMapper.schoolList();
     }
 
     public boolean addSchoolInfo(SchoolInfo schoolInfo){
         boolean result = false;
+        String convertMD5 = schoolInfo.getPassword();
+        schoolInfo.setPassword(SecureUtil.md5(convertMD5));
         schoolInfoMapper.addSchoolInfo(schoolInfo);
         return result;
     }

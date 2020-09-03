@@ -36,7 +36,7 @@ public class SchoolController {
 
     @GetMapping("/schooollist")
     private ApiResult<?> schoollist(){
-        return ApiResult.newSuccess();
+        return ApiResult.newSuccess(schoolInfoService.getSchoolInfoList());
     }
 
     @PostMapping("/addschool")

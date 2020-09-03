@@ -3,13 +3,15 @@ package com.education.system.mapper;
 import com.education.system.pojo.SchoolInfo;
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
+
 @Mapper
 public interface SchoolInfoMapper {
     /**
      * 查询学校列表
      * @return
      */
-    public String schoolList();
+    public List<SchoolInfo> schoolList();
 
     /**
      * 新增学校
