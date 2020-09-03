@@ -3,6 +3,56 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="com.education.system.mapper.SchoolInfoMapper">
+    <resultMap id="schoolListResult" type="com.education.system.pojo.SchoolInfo">
+        <id column="id"  property="id"/>
+        <result column="account" jdbcType="VARCHAR" property="account"/>
+        <result column="password" jdbcType="VARCHAR" property="password"/>
+        <result column="schoolname" jdbcType="VARCHAR" property="schoolName"/>
+        <result column="schoolcontactor" jdbcType="VARCHAR" property="schoolContactor"/>
+        <result column="schoolphone" jdbcType="INTEGER" property="schoolPhone"/>
+        <result column="status" jdbcType="TINYINT" property="status"/>
+    </resultMap>
 
+    <select id="schoolList" resultMap="schoolListResult">
+        select * from edu_school;
+    </select>
+
+    <select id="searchSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" resultMap="schoolListResult">
+        select * from edu_school
+        <where>
+            <if  test="id !=null" >
+                id = #{id};
+            </if>
+            <if  test="schoolname !=null" >
+                schoolname = #{schoolname};
+            </if>
+            <if  test="schoolcontactor !=null" >
+                schoolcontactor = #{schoolcontactor};
+            </if>
+        </where>
+    </select>
+
+    <delete id="deleteSchoolInfo" parameterType="int">
+        delete from edu_school where id=#{id};
+    </delete>
+
+    <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
+        INSERT INTO
+        edu_school (account,password,schoolname,schoolcontactor,schoolphone,status)
+        VALUES (#{account},#{password},#{schoolname},#{schoolcontactor},#{schoolphone},#{status});
+    </insert>
+
+    <update id="updateSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
+        update edu_school
+        <set>
+            <if test="schoolname !=null"> schoolname = #{schoolname},</if>
+            <if test="schoolcontactor !=null"> schoolcontactor = #{schoolcontactor},</if>
+            <if test="schoolphone !=null"> schoolphone = #{schoolphone},</if>
+            <if test="account !=null"> account = #{account},</if>
+            <if test="password !=null"> password = #{password},</if>
+            <if test="status !=null"> status = #{status},</if>
+        </set>
+        where id = #{id};
+    </update>
 </mapper>
