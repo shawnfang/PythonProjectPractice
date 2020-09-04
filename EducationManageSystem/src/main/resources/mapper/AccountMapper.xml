@@ -8,14 +8,19 @@
         <id column="id"  property="id"/>
         <result column="account" jdbcType="VARCHAR" property="account"/>
         <result column="password" jdbcType="VARCHAR" property="password"/>
-        <result column="identities" jdbcType="VARCHAR" property="identities"/>
-        <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="identities" jdbcType="INTEGER" property="identities"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
     </resultMap>
 
-    <insert id="addAccount" parameterType="com.education.system.pojo.Account">
+    <insert id="addAccount" parameterType="com.education.system.pojo.Account" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         edu_account (account,password,identities,status)
-        VALUES (#{account},#{password},#{identity},#{status});
+        VALUES (#{account},#{password},#{identities},#{status});
+        <!--
+        <selectKey keyProperty = "id" resultType = "java.lang.Integer" order = "AFTER">
+            select LAST_INSERT_ID()
+        </selectKey>
+        -->
     </insert>
 
     <select id="login" parameterType="com.education.system.pojo.Account" resultMap="accountInfo">

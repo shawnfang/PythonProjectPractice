@@ -6,6 +6,6 @@ import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
 public interface AccountMapper {
-    public boolean addAccount(Account account);
+    public int addAccount(Account account);
     public boolean login(Account account);
 }

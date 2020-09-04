@@ -11,5 +11,7 @@ public class SchoolInfo {
     private String schoolContactor;
     private String schoolPhone;
     private boolean status;
+    private int accountId;
+    private Account accounts;
 
 }

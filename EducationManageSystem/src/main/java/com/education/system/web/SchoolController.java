@@ -1,7 +1,9 @@
 package com.education.system.web;
 
 
+import com.education.system.pojo.Account;
 import com.education.system.pojo.SchoolInfo;
+import com.education.system.serviceimpl.AccountServiceImpl;
 import com.education.system.serviceimpl.SchoolInfoServiceImpl;
 import com.education.system.util.ApiResult;
 import com.education.system.util.PhoneFormatCheckUtils;
@@ -45,6 +47,7 @@ public class SchoolController {
             return ApiResult.newError("参数为空");
         }
         SchoolInfo schoolInfo = new SchoolInfo();
+        Account account = new Account();
         if (params.containsKey("schoolName")) {
             if(params.get("schoolName") instanceof String){
                 if (params.get("schoolName").toString().length() <= 0 || params.get("schoolName").toString().length() > 20) {
@@ -76,7 +79,7 @@ public class SchoolController {
                 if (params.get("account").toString().length() <= 0 || params.get("account").toString().length() > 10) {
                     return ApiResult.newError("学校账号参数长度非法");
                 }
-                schoolInfo.setAccount((String)params.get("account"));
+                account.setAccount((String)params.get("account"));
             }else {
                 return ApiResult.newError("学校账号参数类型错误");
             }
@@ -86,11 +89,12 @@ public class SchoolController {
                 if (params.get("password").toString().length() <= 0 || params.get("password").toString().length() > 10) {
                     return ApiResult.newError("密码参数长度非法");
                 }
-                schoolInfo.setPassword((String)params.get("password"));
+                account.setPassword((String)params.get("password"));
             }else {
                 return ApiResult.newError("密码参数类型错误");
             }
         }
+        schoolInfo.setAccounts(account);
         schoolInfo.setStatus(true);
         return ApiResult.newSuccess(schoolInfoService.addSchoolInfo(schoolInfo));
     }

@@ -10,6 +10,7 @@
         <result column="schoolContactor" jdbcType="VARCHAR" property="schoolContactor"/>
         <result column="schoolPhone" jdbcType="VARCHAR" property="schoolPhone"/>
         <result column="status" jdbcType="TINYINT" property="status"/>
+        <result column="accountId" jdbcType="INTEGER" property="accountId" />
     </resultMap>
 
     <select id="schoolList" resultMap="schoolListResult">
@@ -37,8 +38,8 @@
 
     <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
         INSERT INTO
-        edu_school (account,password,schoolName,schoolContactor,schoolPhone,status)
-        VALUES (#{account},#{password},#{schoolName},#{schoolContactor},#{schoolPhone},#{status});
+        edu_school (schoolName,schoolContactor,schoolPhone,status,accountId)
+        VALUES (#{schoolName},#{schoolContactor},#{schoolPhone},#{status},#{accountId});
     </insert>
 
     <update id="updateSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
@@ -47,8 +48,6 @@
             <if test="schoolname !=null"> schoolname = #{schoolname},</if>
             <if test="schoolcontactor !=null"> schoolcontactor = #{schoolcontactor},</if>
             <if test="schoolphone !=null"> schoolphone = #{schoolphone},</if>
-            <if test="account !=null"> account = #{account},</if>
-            <if test="password !=null"> password = #{password},</if>
             <if test="status !=null"> status = #{status},</if>
         </set>
         where id = #{id};
