@@ -2,6 +2,7 @@ package com.education.system.mapper;
 
 import com.education.system.pojo.SchoolInfo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -41,4 +42,6 @@ public interface SchoolInfoMapper {
      * @return
      */
     public String searchSchoolInfo(SchoolInfo schoolInfo);
+
+    public SchoolInfo getSchoolId(@Param("id") Integer id);
 }

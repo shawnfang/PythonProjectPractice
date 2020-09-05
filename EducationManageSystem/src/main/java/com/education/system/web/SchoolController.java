@@ -12,6 +12,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -36,8 +37,11 @@ public class SchoolController {
         }
     }
 
-    @GetMapping("/schooollist")
+    @GetMapping("/schoollist")
     private ApiResult<?> schoollist(){
+        if (schoolInfoService.getSchoolInfoList().isEmpty()) {
+            return ApiResult.newError("该系统还没有学校信息");
+        }
         return ApiResult.newSuccess(schoolInfoService.getSchoolInfoList());
     }
 

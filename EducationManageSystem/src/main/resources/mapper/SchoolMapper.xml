@@ -17,6 +17,15 @@
         select id,schoolName,schoolContactor,schoolPhone,status from edu_school;
     </select>
 
+    <select id="getSchoolId" parameterType="int" resultMap="schoolListResult">
+        select id,schoolName,schoolContactor,schoolPhone,status from edu_school
+        <where>
+            <if test="id !=null">
+            id = #{id};
+            </if>
+        </where>
+    </select>
+
     <select id="searchSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" resultMap="schoolListResult">
         select * from edu_school
         <where>
@@ -36,7 +45,7 @@
         delete from edu_school where id=#{id};
     </delete>
 
-    <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
+    <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         edu_school (schoolName,schoolContactor,schoolPhone,status,accountId)
         VALUES (#{schoolName},#{schoolContactor},#{schoolPhone},#{status},#{accountId});

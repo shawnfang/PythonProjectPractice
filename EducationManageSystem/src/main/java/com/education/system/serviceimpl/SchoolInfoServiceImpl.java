@@ -1,6 +1,7 @@
 package com.education.system.serviceimpl;
 
 import cn.hutool.crypto.SecureUtil;
+import com.alibaba.fastjson.JSONArray;
 import com.education.system.mapper.AccountMapper;
 import com.education.system.mapper.SchoolInfoMapper;
 import com.education.system.pojo.Account;
@@ -25,12 +26,24 @@ public class SchoolInfoServiceImpl {
 
     public List<SchoolInfo> getSchoolInfoList(){
         List<SchoolInfo> schoolInfos = schoolInfoMapper.schoolList();
+        logger.info("学校信息列表"+ schoolInfos);
         return schoolInfoMapper.schoolList();
     }
 
-    public boolean addSchoolInfo(SchoolInfo schoolInfo){
+    public String addSchoolInfo(SchoolInfo schoolInfo){
         boolean result = false;
-        Account account = new Account();
+        List<Account> accountList = accountMapper.selectAccount();
+        for (Account account: accountList){
+            if (account.getAccount().equals(schoolInfo.getAccounts().getAccount())) {
+                return "您注册的账号已存在";
+            }
+        }
+        List<SchoolInfo> schoolInfos = schoolInfoMapper.schoolList();
+        for (SchoolInfo schoolInfo1:schoolInfos){
+            if (schoolInfo1.getSchoolName().equals(schoolInfo.getSchoolName())) {
+                return "您注册的学校已存在";
+            }
+        }
         String convertMD5 = schoolInfo.getAccounts().getPassword();
         schoolInfo.getAccounts().setPassword(SecureUtil.md5(convertMD5));
         schoolInfo.getAccounts().setIdentities(1);
@@ -47,7 +60,9 @@ public class SchoolInfoServiceImpl {
             schoolInfo.setAccountId(accountId);
         }
         schoolInfoMapper.addSchoolInfo(schoolInfo);
-        return result;
+        int newSchoolId = schoolInfo.getId();
+        String getNewSchool = JSONArray.toJSON(schoolInfoMapper.getSchoolId(newSchoolId)).toString();
+        return getNewSchool;
     }
 
     public boolean updateSchoolInfo(SchoolInfo schoolInfo){

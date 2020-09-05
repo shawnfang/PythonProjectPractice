@@ -32,4 +32,12 @@
         </where>
     </select>
 
+    <select id="selectAccount" parameterType="com.education.system.pojo.Account" resultMap="accountInfo">
+        select account,password,identities from edu_account
+        <where>
+            <if  test="account !=null and password !=null and identities !=null"  >
+                account = #{account} and password = #{password} and identities = #{identities};
+            </if>
+        </where>
+    </select>
 </mapper>
