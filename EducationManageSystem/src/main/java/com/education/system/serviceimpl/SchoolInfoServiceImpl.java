@@ -67,6 +67,10 @@ public class SchoolInfoServiceImpl {
 
     public boolean updateSchoolInfo(SchoolInfo schoolInfo){
         boolean result = false;
+        logger.info("schoolInfo"+ schoolInfo.toString());
+        if (schoolInfoMapper.updateSchoolInfo(schoolInfo)) {
+            result = true;
+        }
         return result;
     }
 

@@ -61,6 +61,8 @@ public class SchoolController {
             }else {
                 return ApiResult.newError("学校名称参数类型错误");
             }
+        }else{
+            return ApiResult.newError("学校名称不能为空");
         }
         if (params.containsKey("schoolContector")) {
             if (params.get("schoolContector") instanceof String) {
@@ -71,12 +73,16 @@ public class SchoolController {
             }else {
                 return ApiResult.newError("学校联系人参数类型错误");
             }
+        }else{
+            return ApiResult.newError("学校联系人不能为空");
         }
         if (params.containsKey("schoolPhone")) {
             if (!PhoneFormatCheckUtils.isChinaPhoneLegal((String)params.get("schoolPhone"))) {
                 return ApiResult.newError("电话号码参数非法");
             }
             schoolInfo.setSchoolPhone((String)params.get("schoolPhone"));
+        }else{
+            return ApiResult.newError("联系人电话不能为空");
         }
         if (params.containsKey("account")) {
             if (params.get("account") instanceof String) {
@@ -87,6 +93,8 @@ public class SchoolController {
             }else {
                 return ApiResult.newError("学校账号参数类型错误");
             }
+        }else{
+            return ApiResult.newError("学校登录账号不能为空");
         }
         if (params.containsKey("password")) {
             if (params.get("password") instanceof String) {
@@ -97,6 +105,8 @@ public class SchoolController {
             }else {
                 return ApiResult.newError("密码参数类型错误");
             }
+        }else{
+            return ApiResult.newError("密码不能为空");
         }
         schoolInfo.setAccounts(account);
         schoolInfo.setStatus(true);
@@ -104,8 +114,34 @@ public class SchoolController {
     }
 
     @PostMapping("/updateschool")
-    private ApiResult<?> updateschool(@RequestBody Map params){
-        return ApiResult.newSuccess();
+    private ApiResult<?> updateschool(@RequestBody SchoolInfo schoolInfo){
+        if(schoolInfo.getId() == 0){
+            return ApiResult.newError("参数或者ID不能为空");
+        }
+        if (schoolInfo.getSchoolName() != null) {
+            if(schoolInfo.getSchoolName() instanceof String){
+                if (schoolInfo.getSchoolName().length() <= 0 || schoolInfo.getSchoolName().length() > 20) {
+                    return ApiResult.newError("学校名称参数长度非法");
+                }
+            }else {
+                return ApiResult.newError("学校名称参数类型错误");
+            }
+        }
+        if (schoolInfo.getSchoolContactor() != null) {
+            if (schoolInfo.getSchoolContactor() instanceof String) {
+                if (schoolInfo.getSchoolContactor().length() <= 0 || schoolInfo.getSchoolContactor().length() > 10) {
+                    return ApiResult.newError("学校联系人参数长度非法");
+                }
+            }else {
+                return ApiResult.newError("学校联系人参数类型错误");
+            }
+        }
+        if (schoolInfo.getSchoolPhone() != null) {
+            if (!PhoneFormatCheckUtils.isChinaPhoneLegal(schoolInfo.getSchoolPhone())) {
+                return ApiResult.newError("电话号码参数非法");
+            }
+        }
+        return ApiResult.newSuccess(schoolInfoService.updateSchoolInfo(schoolInfo));
     }
 
     @PostMapping("searchschool")

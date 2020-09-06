@@ -54,9 +54,9 @@
     <update id="updateSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
         update edu_school
         <set>
-            <if test="schoolname !=null"> schoolname = #{schoolname},</if>
-            <if test="schoolcontactor !=null"> schoolcontactor = #{schoolcontactor},</if>
-            <if test="schoolphone !=null"> schoolphone = #{schoolphone},</if>
+            <if test="schoolName !=null"> schoolName = #{schoolName},</if>
+            <if test="schoolContactor !=null"> schoolContactor = #{schoolContactor},</if>
+            <if test="schoolPhone !=null"> schoolPhone = #{schoolPhone},</if>
             <if test="status !=null"> status = #{status},</if>
         </set>
         where id = #{id};
