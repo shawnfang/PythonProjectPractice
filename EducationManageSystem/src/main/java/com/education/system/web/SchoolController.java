@@ -29,12 +29,9 @@ public class SchoolController {
 
     @GetMapping("/delschool/{id}")
     private ApiResult<?> delete(@PathVariable("id") int id){
-        boolean deleteResult = schoolInfoService.deleteSchool(id);
-        if (deleteResult) {
-            return ApiResult.newSuccess(true);
-        }else {
-            return ApiResult.newError("删除失败");
-        }
+        String deleteResult = schoolInfoService.deleteSchool(id);
+        return ApiResult.newSuccess(deleteResult);
+
     }
 
     @GetMapping("/schoollist")
@@ -146,6 +143,25 @@ public class SchoolController {
 
     @PostMapping("searchschool")
     private ApiResult<?> searchschool(@RequestBody Map params){
-        return ApiResult.newSuccess();
+        if(params.isEmpty()){
+            return ApiResult.newError("参数为空");
+        }
+        SchoolInfo schoolInfo = new SchoolInfo();
+        if (params.get("schoolName") != null) {
+            if ((String)params.get("schoolName") instanceof String) {
+                schoolInfo.setSchoolName((String)params.get("schoolName"));
+            }else {
+                return ApiResult.newError("学校名称字符类型错误");
+            }
+        }
+        if (params.get("schoolContector") != null) {
+            if ((String)params.get("schoolContector") instanceof String) {
+                schoolInfo.setSchoolContactor((String)params.get("schoolContector"));
+            }else {
+                return ApiResult.newError("学校联系人字符类型错误");
+            }
+        }
+
+        return ApiResult.newSuccess(schoolInfoService.searchSchool(schoolInfo));
     }
 }

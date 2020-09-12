@@ -1,11 +1,13 @@
 package com.education.system.serviceimpl;
 
 import cn.hutool.crypto.SecureUtil;
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.education.system.mapper.AccountMapper;
 import com.education.system.mapper.SchoolInfoMapper;
 import com.education.system.pojo.Account;
 import com.education.system.pojo.SchoolInfo;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -74,13 +76,24 @@ public class SchoolInfoServiceImpl {
         return result;
     }
 
-    public boolean deleteSchool(int id){
-        boolean result = false;
-        return result;
+    public String deleteSchool(int id) {
+        if (schoolInfoMapper.getSchoolId(id) != null) {
+            boolean result = schoolInfoMapper.deleteSchoolInfo(id);
+            if (result != false) {
+                return "删除成功";
+            } else {
+                return "删除失败";
+            }
+        } else {
+            return "没有找到要删除的学校";
+        }
     }
 
     public String searchSchool(SchoolInfo schoolInfo){
-        return schoolInfoMapper.searchSchoolInfo(schoolInfo);
+        logger.info("传入的查询信息："+ schoolInfo.toString());
+        JSONArray searchResult = JSONArray.parseArray(JSON.toJSONString(schoolInfoMapper.searchSchoolInfo(schoolInfo)));
+        logger.info("查询的学校信息："+ searchResult);
+        return searchResult.toJSONString();
     }
 
 }

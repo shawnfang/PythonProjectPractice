@@ -34,14 +34,14 @@ public interface SchoolInfoMapper {
      * @param id
      * @return
      */
-    public boolean deleteSchoolInfo(int id);
+    public boolean deleteSchoolInfo(@Param("id") Integer id);
 
     /**
      * 搜索学校信息
      * @param schoolInfo
      * @return
      */
-    public String searchSchoolInfo(SchoolInfo schoolInfo);
+    public List<SchoolInfo> searchSchoolInfo(SchoolInfo schoolInfo);
 
     public SchoolInfo getSchoolId(@Param("id") Integer id);
 }
