@@ -20,7 +20,8 @@ import java.util.Map;
 public class SchoolInfoServiceImpl {
     @Autowired
     private SchoolInfoMapper schoolInfoMapper;
-
+    //dddddd
+    //dskfjsdlkf
     @Autowired
     private AccountMapper accountMapper;
 
