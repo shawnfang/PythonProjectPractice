@@ -141,7 +141,7 @@ public class SchoolController {
         return ApiResult.newSuccess(schoolInfoService.updateSchoolInfo(schoolInfo));
     }
 
-    @PostMapping("searchschool")
+    @PostMapping("/searchschool")
     private ApiResult<?> searchschool(@RequestBody Map params){
         if(params.isEmpty()){
             return ApiResult.newError("参数为空");
