@@ -25,7 +25,7 @@ public class TeacherRolePermissionController {
 
     @PostMapping("/permisson")
     private ApiResult<?> addPermission(@RequestBody TeacherRolePermission teacherRolePermission) {
-        int id = teacherRolePermissionService.addRolePermission(teacherRolePermission)
+        int id = teacherRolePermissionService.addRolePermission(teacherRolePermission);
         if( id > 0){
             return ApiResult.newSuccess(id);
         }else {
