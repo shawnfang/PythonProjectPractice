@@ -17,4 +17,5 @@ public class TeacherInfo {
     private int accountId;
     private int status;
     private int schoolId;
+    private int roleId;
 }

@@ -14,5 +14,4 @@ public class TeacherRole {
     private String rolePermission;
     private Date createtime;
     private int status;
-    private int rolePermissionId;
 }
