@@ -20,8 +20,7 @@ import java.util.Map;
 public class SchoolInfoServiceImpl {
     @Autowired
     private SchoolInfoMapper schoolInfoMapper;
-    //dddddd
-    //dskfjsdlkf
+
     @Autowired
     private AccountMapper accountMapper;
 
@@ -29,11 +28,10 @@ public class SchoolInfoServiceImpl {
 
     public List<SchoolInfo> getSchoolInfoList(){
         List<SchoolInfo> schoolInfos = schoolInfoMapper.schoolList();
-        logger.info("学校信息列表"+ schoolInfos);
         return schoolInfoMapper.schoolList();
     }
 
-    public String addSchoolInfo(SchoolInfo schoolInfo){
+    public boolean addSchoolInfo(SchoolInfo schoolInfo){
         boolean result = false;
         List<Account> accountList = accountMapper.selectAccount();
         for (Account account: accountList){
