@@ -20,8 +20,10 @@ public interface BookInfoMapper {
      *
      * @param bookId
      * @return
-     */
+     **/
     public String getBookIds(Integer bookId);
+
+
     /***
      * 查询图书的信息
      * @param

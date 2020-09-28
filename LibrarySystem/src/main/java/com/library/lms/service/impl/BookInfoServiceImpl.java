@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,6 +59,9 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean insertBook(BookInfo book) {
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        book.setUpdate_date(date);
         return bookInfoMapper.addBook(book);
     }
 
@@ -76,11 +82,27 @@ public class BookInfoServiceImpl implements BookInfoService {
 
     public boolean updateBook(BookInfo book) {
         List<BookInfo> bookInfos = bookInfoMapper.selectBook();
+        logger.info("数量："+bookInfos.size());
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
         for (BookInfo bookInfo:bookInfos){
             if (bookInfo.getBook_id() == book.getBook_id()) {
-                return bookInfoMapper.updateBook(book);
+                logger.info("bookid1:"+bookInfo.getBook_id());
+                logger.info("bookid2:"+book.getBook_id());
+                logger.info("时间1："+bookInfo.getBook_name());
+                logger.info("时间1："+bookInfo.getUpdate_date());
+                logger.info("时间2："+book.getUpdate_date());
+                if (bookInfo.getUpdate_date().toString().equals(book.getUpdate_date().toString())) {
+                    book.setUpdate_date(date);
+                    return bookInfoMapper.updateBook(book);
+                }else {
+                    System.out.println("该订单已经被其他线程修改");
+                    logger.info("这里返回0");
+                    return false;
+                }
             }
         }
+        logger.info("这里返回2");
         return false;
     }
 

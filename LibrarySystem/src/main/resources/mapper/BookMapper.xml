@@ -53,7 +53,8 @@
         book_price,
         book_type,
         book_publish,
-        book_sum)
+        book_sum,
+        update_date)
         VALUES (
         #{book_sort_id},
         #{book_name},
@@ -61,7 +62,8 @@
         #{book_price},
         #{book_type},
         #{book_publish},
-        #{book_sum});
+        #{book_sum},
+        #{update_date});
     </insert>
 
     <update id = "updateBook" parameterType="com.library.lms.pojo.BookInfo" >

@@ -1,6 +1,7 @@
 package com.library.lms.web;
 
 import com.alibaba.fastjson.JSON;
+import com.library.lms.mapper.BookInfoMapper;
 import com.library.lms.pojo.BookInfo;
 import com.library.lms.service.BookInfoService;
 import com.library.lms.util.ApiResult;
@@ -20,6 +21,10 @@ import java.util.Map;
 public class BookInfoController {
     @Autowired
     private BookInfoService bookInfoService;
+
+    @Autowired
+    private BookInfoMapper bookInfoMapper;
+
     private final static Logger logger = LoggerFactory.getLogger(BookInfoController.class);
 
     @Autowired
@@ -134,6 +139,9 @@ public class BookInfoController {
         if(params.containsKey("sum")){
             bookInfo.setBook_sum((Integer) params.get("sum"));
         }
+        BookInfo uBookInfo = bookInfoMapper.getBookId(bookInfo.getBook_id());
+        logger.info("controller时间："+uBookInfo.getUpdate_date());
+        bookInfo.setUpdate_date(uBookInfo.getUpdate_date());
         if (bookInfoService.updateBook(bookInfo)) {
             updateResult = true;
         }

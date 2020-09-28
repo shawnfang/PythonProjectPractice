@@ -2,6 +2,8 @@ package com.library.lms.pojo;
 
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class BookInfo {
     private int book_id;
@@ -13,6 +15,7 @@ public class BookInfo {
     private String book_publish;
     private int book_sum;
     private int book_mark;
+    private Date update_date;
 
     public int getBook_id() {
         return book_id;
@@ -86,6 +89,14 @@ public class BookInfo {
         this.book_type = book_type;
     }
 
+    public void setUpdate_date(Date update_date) {
+        this.update_date = update_date;
+    }
+
+    public Date getUpdate_date() {
+        return update_date;
+    }
+
     @Override
     public String toString() {
         return "BookInfo{" +
@@ -96,8 +107,9 @@ public class BookInfo {
                 ", book_price=" + book_price +
                 ", book_type='" + book_type + '\'' +
                 ", book_publish='" + book_publish + '\'' +
-                ", book_sum='" + book_sum + '\'' +
+                ", book_sum=" + book_sum +
                 ", book_mark=" + book_mark +
+                ", update_date=" + update_date +
                 '}';
     }
 }

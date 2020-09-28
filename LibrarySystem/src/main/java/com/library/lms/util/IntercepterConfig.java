@@ -28,6 +28,7 @@ public class IntercepterConfig implements WebMvcConfigurer {
         excludePath.add("/user_register"); //注册
         excludePath.add("/login"); //登录
         excludePath.add("/logout"); //登出
+        excludePath.add("/**"); //临时
         excludePath.add("/static/**");  //静态资源
         excludePath.add("/assets/**");  //静态资源
 
