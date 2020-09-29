@@ -86,7 +86,7 @@ public class BookInfoController {
         if(!params.containsKey("borrow")){
             return ApiResult.newError("参数错误");
         }
-        if (bookInfoService.borrowBook(bookInfo)) {
+        if (this.bookInfoService.borrowBook(bookInfo)) {
             return ApiResult.newSuccess("借阅成功");
         }else {
             return  ApiResult.newSuccess("借阅失败");

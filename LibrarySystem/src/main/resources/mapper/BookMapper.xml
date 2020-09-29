@@ -37,7 +37,8 @@
         book_type,
         book_publish,
         book_sum,
-        book_mark
+        book_mark,
+        update_date
         FROM
         book_info
         LIMIT 10

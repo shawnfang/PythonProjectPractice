@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.sql.Timestamp;
 
 @Service("bookInfoService")
 public class BookInfoServiceImpl implements BookInfoService {
@@ -59,9 +60,9 @@ public class BookInfoServiceImpl implements BookInfoService {
     }
 
     public boolean insertBook(BookInfo book) {
-        Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime();
-        book.setUpdate_date(date);
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
+        book.setUpdate_date(timestamp);
         return bookInfoMapper.addBook(book);
     }
 
@@ -83,17 +84,12 @@ public class BookInfoServiceImpl implements BookInfoService {
     public boolean updateBook(BookInfo book) {
         List<BookInfo> bookInfos = bookInfoMapper.selectBook();
         logger.info("数量："+bookInfos.size());
-        Calendar cal = Calendar.getInstance();
-        Date date = cal.getTime();
+        Date date = new Date();
+        Timestamp timestamp = new Timestamp(date.getTime());
         for (BookInfo bookInfo:bookInfos){
             if (bookInfo.getBook_id() == book.getBook_id()) {
-                logger.info("bookid1:"+bookInfo.getBook_id());
-                logger.info("bookid2:"+book.getBook_id());
-                logger.info("时间1："+bookInfo.getBook_name());
-                logger.info("时间1："+bookInfo.getUpdate_date());
-                logger.info("时间2："+book.getUpdate_date());
-                if (bookInfo.getUpdate_date().toString().equals(book.getUpdate_date().toString())) {
-                    book.setUpdate_date(date);
+                if (bookInfo.getUpdate_date().equals(book.getUpdate_date())) {
+                    book.setUpdate_date(timestamp);
                     return bookInfoMapper.updateBook(book);
                 }else {
                     System.out.println("该订单已经被其他线程修改");

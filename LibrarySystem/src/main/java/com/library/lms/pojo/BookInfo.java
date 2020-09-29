@@ -2,6 +2,7 @@ package com.library.lms.pojo;
 
 import org.springframework.stereotype.Component;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Component
@@ -15,7 +16,7 @@ public class BookInfo {
     private String book_publish;
     private int book_sum;
     private int book_mark;
-    private Date update_date;
+    private Timestamp update_date;
 
     public int getBook_id() {
         return book_id;
@@ -89,11 +90,11 @@ public class BookInfo {
         this.book_type = book_type;
     }
 
-    public void setUpdate_date(Date update_date) {
+    public void setUpdate_date(Timestamp update_date) {
         this.update_date = update_date;
     }
 
-    public Date getUpdate_date() {
+    public Timestamp getUpdate_date() {
         return update_date;
     }
 
