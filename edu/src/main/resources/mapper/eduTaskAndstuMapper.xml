@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.system.mapper.eduTaskAndstuMapper">
+  <resultMap id="BaseResultMap" type="com.edu.system.entity.eduTaskAndstu">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="stuAndclassId" jdbcType="INTEGER" property="stuAndclassId" />
+    <result column="taskId" jdbcType="INTEGER" property="taskId" />
+    <result column="stu_divisionofwork" jdbcType="VARCHAR" property="stu_divisionofwork" />
+    <result column="group" jdbcType="VARCHAR" property="group" />
+    <result column="capital" jdbcType="VARCHAR" property="capital" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, stuAndclassId, taskId, stu_divisionofwork, group, capital
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.system.entity.eduTaskAndstuExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from edu_taskAndstu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0">
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from edu_taskAndstu
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from edu_taskAndstu
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.system.entity.eduTaskAndstuExample">
+    delete from edu_taskAndstu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.system.entity.eduTaskAndstu">
+    insert into edu_taskAndstu (id, stuAndclassId, taskId, 
+      stu_divisionofwork, group, capital
+      )
+    values (#{id,jdbcType=INTEGER}, #{stuAndclassId,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, 
+      #{stu_divisionofwork,jdbcType=VARCHAR}, #{group,jdbcType=VARCHAR}, #{capital,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.system.entity.eduTaskAndstu">
+    insert into edu_taskAndstu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="stuAndclassId != null">
+        stuAndclassId,
+      </if>
+      <if test="taskId != null">
+        taskId,
+      </if>
+      <if test="stu_divisionofwork != null">
+        stu_divisionofwork,
+      </if>
+      <if test="group != null">
+        group,
+      </if>
+      <if test="capital != null">
+        capital,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="stuAndclassId != null">
+        #{stuAndclassId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="stu_divisionofwork != null">
+        #{stu_divisionofwork,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        #{capital,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.system.entity.eduTaskAndstuExample" resultType="java.lang.Long">
+    select count(*) from edu_taskAndstu
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update edu_taskAndstu
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.stuAndclassId != null">
+        stuAndclassId = #{record.stuAndclassId,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        taskId = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.stu_divisionofwork != null">
+        stu_divisionofwork = #{record.stu_divisionofwork,jdbcType=VARCHAR},
+      </if>
+      <if test="record.group != null">
+        group = #{record.group,jdbcType=VARCHAR},
+      </if>
+      <if test="record.capital != null">
+        capital = #{record.capital,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update edu_taskAndstu
+    set id = #{record.id,jdbcType=INTEGER},
+      stuAndclassId = #{record.stuAndclassId,jdbcType=INTEGER},
+      taskId = #{record.taskId,jdbcType=INTEGER},
+      stu_divisionofwork = #{record.stu_divisionofwork,jdbcType=VARCHAR},
+      group = #{record.group,jdbcType=VARCHAR},
+      capital = #{record.capital,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.system.entity.eduTaskAndstu">
+    update edu_taskAndstu
+    <set>
+      <if test="stuAndclassId != null">
+        stuAndclassId = #{stuAndclassId,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        taskId = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="stu_divisionofwork != null">
+        stu_divisionofwork = #{stu_divisionofwork,jdbcType=VARCHAR},
+      </if>
+      <if test="group != null">
+        group = #{group,jdbcType=VARCHAR},
+      </if>
+      <if test="capital != null">
+        capital = #{capital,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.system.entity.eduTaskAndstu">
+    update edu_taskAndstu
+    set stuAndclassId = #{stuAndclassId,jdbcType=INTEGER},
+      taskId = #{taskId,jdbcType=INTEGER},
+      stu_divisionofwork = #{stu_divisionofwork,jdbcType=VARCHAR},
+      group = #{group,jdbcType=VARCHAR},
+      capital = #{capital,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

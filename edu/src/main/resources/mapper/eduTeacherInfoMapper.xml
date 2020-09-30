@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.edu.system.mapper.eduTeacherInfoMapper">
+  <resultMap id="BaseResultMap" type="com.edu.system.entity.eduTeacherInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="teacherName" jdbcType="VARCHAR" property="teacherName" />
+    <result column="teacherSex" jdbcType="INTEGER" property="teacherSex" />
+    <result column="teacherLevel" jdbcType="INTEGER" property="teacherLevel" />
+    <result column="teacherCourse" jdbcType="VARCHAR" property="teacherCourse" />
+    <result column="teacherDevCourse" jdbcType="VARCHAR" property="teacherDevCourse" />
+    <result column="teacherPhone" jdbcType="VARCHAR" property="teacherPhone" />
+    <result column="teacherRole" jdbcType="VARCHAR" property="teacherRole" />
+    <result column="accountId" jdbcType="INTEGER" property="accountId" />
+    <result column="status" jdbcType="BIT" property="status" />
+    <result column="schoolId" jdbcType="INTEGER" property="schoolId" />
+    <result column="roleId" jdbcType="INTEGER" property="roleId" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, teacherName, teacherSex, teacherLevel, teacherCourse, teacherDevCourse, teacherPhone, 
+    teacherRole, accountId, status, schoolId, roleId
+  </sql>
+  <select id="selectByExample" parameterType="com.edu.system.entity.eduTeacherInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from edu_teacherInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0">
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from edu_teacherInfo
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from edu_teacherInfo
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.edu.system.entity.eduTeacherInfoExample">
+    delete from edu_teacherInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.edu.system.entity.eduTeacherInfo">
+    insert into edu_teacherInfo (id, teacherName, teacherSex, 
+      teacherLevel, teacherCourse, teacherDevCourse, 
+      teacherPhone, teacherRole, accountId, 
+      status, schoolId, roleId
+      )
+    values (#{id,jdbcType=INTEGER}, #{teacherName,jdbcType=VARCHAR}, #{teacherSex,jdbcType=INTEGER}, 
+      #{teacherLevel,jdbcType=INTEGER}, #{teacherCourse,jdbcType=VARCHAR}, #{teacherDevCourse,jdbcType=VARCHAR}, 
+      #{teacherPhone,jdbcType=VARCHAR}, #{teacherRole,jdbcType=VARCHAR}, #{accountId,jdbcType=INTEGER}, 
+      #{status,jdbcType=BIT}, #{schoolId,jdbcType=INTEGER}, #{roleId,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.edu.system.entity.eduTeacherInfo">
+    insert into edu_teacherInfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="teacherName != null">
+        teacherName,
+      </if>
+      <if test="teacherSex != null">
+        teacherSex,
+      </if>
+      <if test="teacherLevel != null">
+        teacherLevel,
+      </if>
+      <if test="teacherCourse != null">
+        teacherCourse,
+      </if>
+      <if test="teacherDevCourse != null">
+        teacherDevCourse,
+      </if>
+      <if test="teacherPhone != null">
+        teacherPhone,
+      </if>
+      <if test="teacherRole != null">
+        teacherRole,
+      </if>
+      <if test="accountId != null">
+        accountId,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="schoolId != null">
+        schoolId,
+      </if>
+      <if test="roleId != null">
+        roleId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="teacherName != null">
+        #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null">
+        #{teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="teacherLevel != null">
+        #{teacherLevel,jdbcType=INTEGER},
+      </if>
+      <if test="teacherCourse != null">
+        #{teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDevCourse != null">
+        #{teacherDevCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null">
+        #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherRole != null">
+        #{teacherRole,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=BIT},
+      </if>
+      <if test="schoolId != null">
+        #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        #{roleId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.edu.system.entity.eduTeacherInfoExample" resultType="java.lang.Long">
+    select count(*) from edu_teacherInfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update edu_teacherInfo
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherName != null">
+        teacherName = #{record.teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherSex != null">
+        teacherSex = #{record.teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherLevel != null">
+        teacherLevel = #{record.teacherLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.teacherCourse != null">
+        teacherCourse = #{record.teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherDevCourse != null">
+        teacherDevCourse = #{record.teacherDevCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherPhone != null">
+        teacherPhone = #{record.teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.teacherRole != null">
+        teacherRole = #{record.teacherRole,jdbcType=VARCHAR},
+      </if>
+      <if test="record.accountId != null">
+        accountId = #{record.accountId,jdbcType=INTEGER},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=BIT},
+      </if>
+      <if test="record.schoolId != null">
+        schoolId = #{record.schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="record.roleId != null">
+        roleId = #{record.roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update edu_teacherInfo
+    set id = #{record.id,jdbcType=INTEGER},
+      teacherName = #{record.teacherName,jdbcType=VARCHAR},
+      teacherSex = #{record.teacherSex,jdbcType=INTEGER},
+      teacherLevel = #{record.teacherLevel,jdbcType=INTEGER},
+      teacherCourse = #{record.teacherCourse,jdbcType=VARCHAR},
+      teacherDevCourse = #{record.teacherDevCourse,jdbcType=VARCHAR},
+      teacherPhone = #{record.teacherPhone,jdbcType=VARCHAR},
+      teacherRole = #{record.teacherRole,jdbcType=VARCHAR},
+      accountId = #{record.accountId,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=BIT},
+      schoolId = #{record.schoolId,jdbcType=INTEGER},
+      roleId = #{record.roleId,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.edu.system.entity.eduTeacherInfo">
+    update edu_teacherInfo
+    <set>
+      <if test="teacherName != null">
+        teacherName = #{teacherName,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherSex != null">
+        teacherSex = #{teacherSex,jdbcType=INTEGER},
+      </if>
+      <if test="teacherLevel != null">
+        teacherLevel = #{teacherLevel,jdbcType=INTEGER},
+      </if>
+      <if test="teacherCourse != null">
+        teacherCourse = #{teacherCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherDevCourse != null">
+        teacherDevCourse = #{teacherDevCourse,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherPhone != null">
+        teacherPhone = #{teacherPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="teacherRole != null">
+        teacherRole = #{teacherRole,jdbcType=VARCHAR},
+      </if>
+      <if test="accountId != null">
+        accountId = #{accountId,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=BIT},
+      </if>
+      <if test="schoolId != null">
+        schoolId = #{schoolId,jdbcType=INTEGER},
+      </if>
+      <if test="roleId != null">
+        roleId = #{roleId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.edu.system.entity.eduTeacherInfo">
+    update edu_teacherInfo
+    set teacherName = #{teacherName,jdbcType=VARCHAR},
+      teacherSex = #{teacherSex,jdbcType=INTEGER},
+      teacherLevel = #{teacherLevel,jdbcType=INTEGER},
+      teacherCourse = #{teacherCourse,jdbcType=VARCHAR},
+      teacherDevCourse = #{teacherDevCourse,jdbcType=VARCHAR},
+      teacherPhone = #{teacherPhone,jdbcType=VARCHAR},
+      teacherRole = #{teacherRole,jdbcType=VARCHAR},
+      accountId = #{accountId,jdbcType=INTEGER},
+      status = #{status,jdbcType=BIT},
+      schoolId = #{schoolId,jdbcType=INTEGER},
+      roleId = #{roleId,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
