@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.education.system.mapper.dtoMapper.SchoolInfoDtoMapper">
+    <insert id="insert" parameterType="com.education.system.entity.eduSchool" useGeneratedKeys="true" keyProperty="id">
+    insert into edu_school (id, schoolName, schoolContactor,
+      schoolPhone, status, accountId
+      )
+    values (#{id,jdbcType=INTEGER}, #{schoolName,jdbcType=VARCHAR}, #{schoolContactor,jdbcType=VARCHAR},
+      #{schoolPhone,jdbcType=VARCHAR}, #{status,jdbcType=BIT}, #{accountId,jdbcType=INTEGER}
+      )
+  </insert>
+</mapper>

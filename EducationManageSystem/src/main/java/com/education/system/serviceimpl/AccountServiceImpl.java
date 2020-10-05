@@ -8,8 +8,9 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl {
+
     @Autowired
-    private eduAccountMapper accountMapper;
+    private eduAccountMapper eduAccountMapper;
 
     public boolean addAccount(eduAccount account){
         return false;

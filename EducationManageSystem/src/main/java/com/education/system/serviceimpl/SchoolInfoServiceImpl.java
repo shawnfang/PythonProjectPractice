@@ -9,7 +9,9 @@ import com.education.system.entity.eduAccount;
 import com.education.system.entity.eduAccountExample;
 import com.education.system.entity.eduSchool;
 import com.education.system.entity.eduSchoolExample;
+import com.education.system.mapper.dtoMapper.AccountDtoMapper;
 import com.education.system.mapper.dtoMapper.SchoolSearchInfoMapper;
+import com.education.system.mapper.dtoMapper.SchoolInfoDtoMapper;
 import com.education.system.mapper.eduAccountMapper;
 import com.education.system.mapper.eduSchoolMapper;
 import org.slf4j.Logger;
@@ -28,7 +30,13 @@ public class SchoolInfoServiceImpl {
     private eduAccountMapper eduAccountMapper;
 
     @Autowired
+    private AccountDtoMapper accountDtoMapper;
+
+    @Autowired
     private SchoolSearchInfoMapper schoolSearchInfoMapper;
+
+    @Autowired
+    private SchoolInfoDtoMapper schoolInfoDtoMapper;
 
     private final static Logger logger = LoggerFactory.getLogger(SchoolInfoServiceImpl.class);
 
@@ -63,7 +71,8 @@ public class SchoolInfoServiceImpl {
         eduAccount.setPassword(SecureUtil.md5(convertMD5));
         eduAccount.setIdentities(1);
         eduAccount.setStatus(1);
-        eduAccountMapper.insert(eduAccount);
+        logger.info("插入的账号信息："+ JSON.toJSONString(eduAccount));
+        accountDtoMapper.insertAccount(eduAccount);
         /**
          * 插入的数据所返回数据是插入的条数，
          * 如果要拿到新插入数据的ID主键的话，
@@ -73,10 +82,12 @@ public class SchoolInfoServiceImpl {
         logger.info("返回的ID是："+ accountId);
         if (accountId != 0) {
             schoolInfo.setAccountId(accountId);
+            schoolInfo.setStatus(true);
         }
-        eduSchoolMapper.insert(schoolInfo);
+        schoolInfoDtoMapper.insert(schoolInfo);
         int newSchoolId = schoolInfo.getId();
         String getNewSchool = JSONArray.toJSON(eduSchoolMapper.selectByPrimaryKey(newSchoolId)).toString();
+        logger.info("新插入的学校信息："+getNewSchool);
         return true;
     }
 

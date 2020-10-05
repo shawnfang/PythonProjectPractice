@@ -11,7 +11,6 @@ public class SchoolInfoDto extends eduSchool {
     private String schoolName;
     private String schoolContactor;
     private String schoolPhone;
-    private boolean status;
     private AccountDto accounts;
 
 }

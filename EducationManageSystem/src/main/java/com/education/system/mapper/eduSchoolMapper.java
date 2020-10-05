@@ -3,7 +3,10 @@ package com.education.system.mapper;
 import com.education.system.entity.eduSchool;
 import com.education.system.entity.eduSchoolExample;
 import java.util.List;
+
+import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+
 
 public interface eduSchoolMapper {
     long countByExample(eduSchoolExample example);

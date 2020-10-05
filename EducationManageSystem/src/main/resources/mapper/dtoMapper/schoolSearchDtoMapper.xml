@@ -4,8 +4,8 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.education.system.mapper.dtoMapper.SchoolSearchInfoMapper" >
-    <resultMap id="schoolListResult" type="com.education.system.entity.eduSchool" extends="com.education.system.mapper.eduSchoolMapper.BaseResultMap">
-
+    <resultMap id="schoolListResult" type="com.education.system.entity.eduSchool"
+               extends="com.education.system.mapper.eduSchoolMapper.BaseResultMap">
     </resultMap>
     <select id="searchSchoolInfo" parameterType="com.education.system.dto.SchoolSearchDto" resultMap="schoolListResult">
         select * from edu_school

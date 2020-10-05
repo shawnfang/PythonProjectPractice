@@ -1,5 +1,6 @@
 package com.education.system.web;
 
+import com.alibaba.fastjson.JSON;
 import com.education.system.dto.SchoolInfoDto;
 import com.education.system.dto.SchoolSearchDto;
 import com.education.system.serviceimpl.SchoolInfoServiceImpl;
@@ -39,19 +40,22 @@ public class SchoolController {
 
     @PostMapping("/addschool")
     private ApiResult<?> addschool(@RequestBody SchoolInfoDto params){
-        if(params.getSchoolName() == null && (!(params.getSchoolName() instanceof String))){
+        logger.info("test1:"+JSON.toJSONString(params));
+        logger.info("test2:"+JSON.toJSONString(params.getAccounts().getAccount()));
+        logger.info("test3:"+JSON.toJSONString(params.getAccounts().getPassword()));
+        if(params.getSchoolName() == null || (!(params.getSchoolName() instanceof String))){
             return ApiResult.newError("学校名称非法");
         }
-        if(params.getSchoolContactor() == null &&(!(params.getSchoolContactor() instanceof String))){
+        if(params.getSchoolContactor() == null || (!(params.getSchoolContactor() instanceof String))){
             return ApiResult.newError("学校联系人字段非法");
         }
-        if (params.getSchoolPhone() == null && (!(params.getSchoolPhone() instanceof String))) {
+        if (params.getSchoolPhone() == null || (!(params.getSchoolPhone() instanceof String))) {
             return ApiResult.newError("学校联系方式非法");
         }
-        if (params.getAccounts().getAccount() == null&&(!(params.getAccounts().getAccount() instanceof String))) {
+        if (params.getAccounts().getAccount() == null || (!(params.getAccounts().getAccount() instanceof String))) {
             return ApiResult.newError("学校注册用户名非法");
         }
-        if (params.getAccounts().getPassword() == null && (!(params.getAccounts().getPassword() instanceof String))) {
+        if (params.getAccounts().getPassword() == null || (!(params.getAccounts().getPassword() instanceof String))) {
             return ApiResult.newError("学校注册密码非法");
         }
         return ApiResult.newSuccess(schoolInfoService.addSchoolInfo(params));
@@ -90,14 +94,16 @@ public class SchoolController {
 
     @PostMapping("/searchschool")
     private ApiResult<?> searchschool(@RequestBody SchoolSearchDto params){
-        if (params.getSchoolName() == null && (!(params.getSchoolName() instanceof String))) {
+        if (params.getSchoolName() != null) {
+            if (!(params.getSchoolName() instanceof String)) {
                 return ApiResult.newError("学校名称字符类型错误");
+            }
         }
-        if (params.getSchoolContactor() == null && (!(params.getSchoolContactor() instanceof String))) {
+        if (params.getSchoolContactor() != null ) {
+            if (!(params.getSchoolContactor() instanceof String)) {
                 return ApiResult.newError("学校联系人字符类型错误");
-
+            }
         }
-
         return ApiResult.newSuccess(schoolInfoService.searchSchool(params));
     }
 }
