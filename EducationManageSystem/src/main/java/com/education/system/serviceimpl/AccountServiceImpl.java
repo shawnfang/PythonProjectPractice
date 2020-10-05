@@ -1,20 +1,21 @@
 package com.education.system.serviceimpl;
 
-import com.education.system.mapper.AccountMapper;
-import com.education.system.pojo.Account;
+import com.education.system.dto.AccountDto;
+import com.education.system.entity.eduAccount;
+import com.education.system.mapper.eduAccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class AccountServiceImpl {
     @Autowired
-    private AccountMapper accountMapper;
+    private eduAccountMapper accountMapper;
 
-    public boolean addAccount(Account account){
+    public boolean addAccount(eduAccount account){
         return false;
     }
 
-    public boolean login(Account account){
+    public boolean login(eduAccount account){
         return false;
     }
 }

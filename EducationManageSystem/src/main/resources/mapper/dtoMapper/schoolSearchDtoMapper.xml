@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.education.system.mapper.dtoMapper.SchoolSearchInfoMapper" >
+    <resultMap id="schoolListResult" type="com.education.system.entity.eduSchool" extends="com.education.system.mapper.eduSchoolMapper.BaseResultMap">
+
+    </resultMap>
+    <select id="searchSchoolInfo" parameterType="com.education.system.dto.SchoolSearchDto" resultMap="schoolListResult">
+        select * from edu_school
+        <where>
+            <if  test="schoolName !=null or schoolContactor !=null " >
+                schoolName = #{schoolName} or schoolContactor = #{schoolContactor};
+            </if>
+        </where>
+    </select>
+    <select id="getSchoolInfoList"  resultMap="schoolListResult">
+        select * from edu_school;
+    </select>
+</mapper>

@@ -4,7 +4,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.education.system.mapper.SchoolInfoMapper">
-    <resultMap id="schoolListResult" type="com.education.system.pojo.SchoolInfo">
+    <resultMap id="schoolListResult" type="com.education.system.dto.SchoolInfo">
         <id column="id"  property="id"/>
         <result column="schoolName" jdbcType="VARCHAR" property="schoolName"/>
         <result column="schoolContactor" jdbcType="VARCHAR" property="schoolContactor"/>
@@ -26,7 +26,7 @@
         </where>
     </select>
 
-    <select id="searchSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" resultMap="schoolListResult">
+    <select id="searchSchoolInfo" parameterType="com.education.system.dto.SchoolInfo" resultMap="schoolListResult">
         select * from edu_school
         <where>
             <if  test="schoolName !=null or schoolContactor !=null " >
@@ -39,13 +39,13 @@
         delete from edu_school where id=#{id};
     </delete>
 
-    <insert id="addSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo" useGeneratedKeys="true" keyProperty="id">
+    <insert id="addSchoolInfo" parameterType="com.education.system.dto.SchoolInfo" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO
         edu_school (schoolName,schoolContactor,schoolPhone,status,accountId)
         VALUES (#{schoolName},#{schoolContactor},#{schoolPhone},#{status},#{accountId});
     </insert>
 
-    <update id="updateSchoolInfo" parameterType="com.education.system.pojo.SchoolInfo">
+    <update id="updateSchoolInfo" parameterType="com.education.system.dto.SchoolInfo">
         update edu_school
         <set>
             <if test="schoolName !=null"> schoolName = #{schoolName},</if>

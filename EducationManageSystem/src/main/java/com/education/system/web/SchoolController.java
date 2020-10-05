@@ -1,18 +1,13 @@
 package com.education.system.web;
 
-
-import com.education.system.pojo.Account;
-import com.education.system.pojo.SchoolInfo;
-import com.education.system.serviceimpl.AccountServiceImpl;
+import com.education.system.dto.SchoolInfoDto;
+import com.education.system.dto.SchoolSearchDto;
 import com.education.system.serviceimpl.SchoolInfoServiceImpl;
 import com.education.system.util.ApiResult;
 import com.education.system.util.PhoneFormatCheckUtils;
-import org.apache.commons.lang.StringUtils;
-import org.apache.ibatis.annotations.Mapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,8 +24,8 @@ public class SchoolController {
 
     @GetMapping("/delschool/{id}")
     private ApiResult<?> delete(@PathVariable("id") int id){
-        String deleteResult = schoolInfoService.deleteSchool(id);
-        return ApiResult.newSuccess(deleteResult);
+        schoolInfoService.deleteSchool(id);
+        return ApiResult.newSuccess();
 
     }
 
@@ -43,75 +38,27 @@ public class SchoolController {
     }
 
     @PostMapping("/addschool")
-    private ApiResult<?> addschool(@RequestBody Map params){
-        if(params.isEmpty()){
-            return ApiResult.newError("参数为空");
+    private ApiResult<?> addschool(@RequestBody SchoolInfoDto params){
+        if(params.getSchoolName() == null && (!(params.getSchoolName() instanceof String))){
+            return ApiResult.newError("学校名称非法");
         }
-        SchoolInfo schoolInfo = new SchoolInfo();
-        Account account = new Account();
-        if (params.containsKey("schoolName")) {
-            if(params.get("schoolName") instanceof String){
-                if (params.get("schoolName").toString().length() <= 0 || params.get("schoolName").toString().length() > 20) {
-                    return ApiResult.newError("学校名称参数长度非法");
-                }
-                schoolInfo.setSchoolName((String)params.get("schoolName"));
-            }else {
-                return ApiResult.newError("学校名称参数类型错误");
-            }
-        }else{
-            return ApiResult.newError("学校名称不能为空");
+        if(params.getSchoolContactor() == null &&(!(params.getSchoolContactor() instanceof String))){
+            return ApiResult.newError("学校联系人字段非法");
         }
-        if (params.containsKey("schoolContector")) {
-            if (params.get("schoolContector") instanceof String) {
-                if (params.get("schoolContector").toString().length() <= 0 || params.get("schoolContector").toString().length() > 10) {
-                    return ApiResult.newError("学校联系人参数长度非法");
-                }
-                schoolInfo.setSchoolContactor((String)params.get("schoolContector"));
-            }else {
-                return ApiResult.newError("学校联系人参数类型错误");
-            }
-        }else{
-            return ApiResult.newError("学校联系人不能为空");
+        if (params.getSchoolPhone() == null && (!(params.getSchoolPhone() instanceof String))) {
+            return ApiResult.newError("学校联系方式非法");
         }
-        if (params.containsKey("schoolPhone")) {
-            if (!PhoneFormatCheckUtils.isChinaPhoneLegal((String)params.get("schoolPhone"))) {
-                return ApiResult.newError("电话号码参数非法");
-            }
-            schoolInfo.setSchoolPhone((String)params.get("schoolPhone"));
-        }else{
-            return ApiResult.newError("联系人电话不能为空");
+        if (params.getAccounts().getAccount() == null&&(!(params.getAccounts().getAccount() instanceof String))) {
+            return ApiResult.newError("学校注册用户名非法");
         }
-        if (params.containsKey("account")) {
-            if (params.get("account") instanceof String) {
-                if (params.get("account").toString().length() <= 0 || params.get("account").toString().length() > 10) {
-                    return ApiResult.newError("学校账号参数长度非法");
-                }
-                account.setAccount((String)params.get("account"));
-            }else {
-                return ApiResult.newError("学校账号参数类型错误");
-            }
-        }else{
-            return ApiResult.newError("学校登录账号不能为空");
+        if (params.getAccounts().getPassword() == null && (!(params.getAccounts().getPassword() instanceof String))) {
+            return ApiResult.newError("学校注册密码非法");
         }
-        if (params.containsKey("password")) {
-            if (params.get("password") instanceof String) {
-                if (params.get("password").toString().length() <= 0 || params.get("password").toString().length() > 10) {
-                    return ApiResult.newError("密码参数长度非法");
-                }
-                account.setPassword((String)params.get("password"));
-            }else {
-                return ApiResult.newError("密码参数类型错误");
-            }
-        }else{
-            return ApiResult.newError("密码不能为空");
-        }
-        schoolInfo.setAccounts(account);
-        schoolInfo.setStatus(true);
-        return ApiResult.newSuccess(schoolInfoService.addSchoolInfo(schoolInfo));
+        return ApiResult.newSuccess(schoolInfoService.addSchoolInfo(params));
     }
 
     @PostMapping("/updateschool")
-    private ApiResult<?> updateschool(@RequestBody SchoolInfo schoolInfo){
+    private ApiResult<?> updateschool(@RequestBody SchoolInfoDto schoolInfo){
         if(schoolInfo.getId() == 0){
             return ApiResult.newError("参数或者ID不能为空");
         }
@@ -142,26 +89,15 @@ public class SchoolController {
     }
 
     @PostMapping("/searchschool")
-    private ApiResult<?> searchschool(@RequestBody Map params){
-        if(params.isEmpty()){
-            return ApiResult.newError("参数为空");
-        }
-        SchoolInfo schoolInfo = new SchoolInfo();
-        if (params.get("schoolName") != null) {
-            if ((String)params.get("schoolName") instanceof String) {
-                schoolInfo.setSchoolName((String)params.get("schoolName"));
-            }else {
+    private ApiResult<?> searchschool(@RequestBody SchoolSearchDto params){
+        if (params.getSchoolName() == null && (!(params.getSchoolName() instanceof String))) {
                 return ApiResult.newError("学校名称字符类型错误");
-            }
         }
-        if (params.get("schoolContector") != null) {
-            if ((String)params.get("schoolContector") instanceof String) {
-                schoolInfo.setSchoolContactor((String)params.get("schoolContector"));
-            }else {
+        if (params.getSchoolContactor() == null && (!(params.getSchoolContactor() instanceof String))) {
                 return ApiResult.newError("学校联系人字符类型错误");
-            }
+
         }
 
-        return ApiResult.newSuccess(schoolInfoService.searchSchool(schoolInfo));
+        return ApiResult.newSuccess(schoolInfoService.searchSchool(params));
     }
 }

@@ -1,0 +1,547 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.education.system.mapper.eduTaskdetailMapper">
+  <resultMap id="BaseResultMap" type="com.education.system.entity.eduTaskdetail">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="taskId" jdbcType="INTEGER" property="taskId" />
+    <result column="course_name" jdbcType="VARCHAR" property="course_name" />
+    <result column="term" jdbcType="VARCHAR" property="term" />
+    <result column="coreliteracycoefficient" jdbcType="VARCHAR" property="coreliteracycoefficient" />
+    <result column="schoolhour" jdbcType="INTEGER" property="schoolhour" />
+    <result column="course_theme" jdbcType="VARCHAR" property="course_theme" />
+    <result column="course_content" jdbcType="VARCHAR" property="course_content" />
+    <result column="course_module" jdbcType="VARCHAR" property="course_module" />
+    <result column="course_scenes" jdbcType="VARCHAR" property="course_scenes" />
+    <result column="course_task" jdbcType="VARCHAR" property="course_task" />
+    <result column="course_type" jdbcType="VARCHAR" property="course_type" />
+    <result column="coreliteracyid" jdbcType="INTEGER" property="coreliteracyid" />
+    <result column="textbookId" jdbcType="INTEGER" property="textbookId" />
+    <result column="textbookName" jdbcType="VARCHAR" property="textbookName" />
+    <result column="textbookType" jdbcType="VARCHAR" property="textbookType" />
+    <result column="textbookDtailId" jdbcType="VARCHAR" property="textbookDtailId" />
+    <result column="detailChapter" jdbcType="VARCHAR" property="detailChapter" />
+    <result column="detailSection" jdbcType="VARCHAR" property="detailSection" />
+    <result column="detail" jdbcType="VARCHAR" property="detail" />
+    <result column="textbookcaseId" jdbcType="INTEGER" property="textbookcaseId" />
+    <result column="caseTheme" jdbcType="VARCHAR" property="caseTheme" />
+    <result column="caseContent" jdbcType="VARCHAR" property="caseContent" />
+    <result column="caseScenes" jdbcType="VARCHAR" property="caseScenes" />
+    <result column="caseTask" jdbcType="VARCHAR" property="caseTask" />
+    <result column="caseSummary" jdbcType="VARCHAR" property="caseSummary" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, taskId, course_name, term, coreliteracycoefficient, schoolhour, course_theme, 
+    course_content, course_module, course_scenes, course_task, course_type, coreliteracyid, 
+    textbookId, textbookName, textbookType, textbookDtailId, detailChapter, detailSection, 
+    detail, textbookcaseId, caseTheme, caseContent, caseScenes, caseTask, caseSummary
+  </sql>
+  <select id="selectByExample" parameterType="com.education.system.entity.eduTaskdetailExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from edu_taskdetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitSize >= 0">
+      limit #{limitStart} , #{limitSize}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from edu_taskdetail
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from edu_taskdetail
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.education.system.entity.eduTaskdetailExample">
+    delete from edu_taskdetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.education.system.entity.eduTaskdetail">
+    insert into edu_taskdetail (id, taskId, course_name, 
+      term, coreliteracycoefficient, schoolhour, 
+      course_theme, course_content, course_module, 
+      course_scenes, course_task, course_type, 
+      coreliteracyid, textbookId, textbookName, 
+      textbookType, textbookDtailId, detailChapter, 
+      detailSection, detail, textbookcaseId, 
+      caseTheme, caseContent, caseScenes, 
+      caseTask, caseSummary)
+    values (#{id,jdbcType=INTEGER}, #{taskId,jdbcType=INTEGER}, #{course_name,jdbcType=VARCHAR}, 
+      #{term,jdbcType=VARCHAR}, #{coreliteracycoefficient,jdbcType=VARCHAR}, #{schoolhour,jdbcType=INTEGER}, 
+      #{course_theme,jdbcType=VARCHAR}, #{course_content,jdbcType=VARCHAR}, #{course_module,jdbcType=VARCHAR}, 
+      #{course_scenes,jdbcType=VARCHAR}, #{course_task,jdbcType=VARCHAR}, #{course_type,jdbcType=VARCHAR}, 
+      #{coreliteracyid,jdbcType=INTEGER}, #{textbookId,jdbcType=INTEGER}, #{textbookName,jdbcType=VARCHAR}, 
+      #{textbookType,jdbcType=VARCHAR}, #{textbookDtailId,jdbcType=VARCHAR}, #{detailChapter,jdbcType=VARCHAR}, 
+      #{detailSection,jdbcType=VARCHAR}, #{detail,jdbcType=VARCHAR}, #{textbookcaseId,jdbcType=INTEGER}, 
+      #{caseTheme,jdbcType=VARCHAR}, #{caseContent,jdbcType=VARCHAR}, #{caseScenes,jdbcType=VARCHAR}, 
+      #{caseTask,jdbcType=VARCHAR}, #{caseSummary,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.education.system.entity.eduTaskdetail">
+    insert into edu_taskdetail
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="taskId != null">
+        taskId,
+      </if>
+      <if test="course_name != null">
+        course_name,
+      </if>
+      <if test="term != null">
+        term,
+      </if>
+      <if test="coreliteracycoefficient != null">
+        coreliteracycoefficient,
+      </if>
+      <if test="schoolhour != null">
+        schoolhour,
+      </if>
+      <if test="course_theme != null">
+        course_theme,
+      </if>
+      <if test="course_content != null">
+        course_content,
+      </if>
+      <if test="course_module != null">
+        course_module,
+      </if>
+      <if test="course_scenes != null">
+        course_scenes,
+      </if>
+      <if test="course_task != null">
+        course_task,
+      </if>
+      <if test="course_type != null">
+        course_type,
+      </if>
+      <if test="coreliteracyid != null">
+        coreliteracyid,
+      </if>
+      <if test="textbookId != null">
+        textbookId,
+      </if>
+      <if test="textbookName != null">
+        textbookName,
+      </if>
+      <if test="textbookType != null">
+        textbookType,
+      </if>
+      <if test="textbookDtailId != null">
+        textbookDtailId,
+      </if>
+      <if test="detailChapter != null">
+        detailChapter,
+      </if>
+      <if test="detailSection != null">
+        detailSection,
+      </if>
+      <if test="detail != null">
+        detail,
+      </if>
+      <if test="textbookcaseId != null">
+        textbookcaseId,
+      </if>
+      <if test="caseTheme != null">
+        caseTheme,
+      </if>
+      <if test="caseContent != null">
+        caseContent,
+      </if>
+      <if test="caseScenes != null">
+        caseScenes,
+      </if>
+      <if test="caseTask != null">
+        caseTask,
+      </if>
+      <if test="caseSummary != null">
+        caseSummary,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="taskId != null">
+        #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="course_name != null">
+        #{course_name,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="coreliteracycoefficient != null">
+        #{coreliteracycoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolhour != null">
+        #{schoolhour,jdbcType=INTEGER},
+      </if>
+      <if test="course_theme != null">
+        #{course_theme,jdbcType=VARCHAR},
+      </if>
+      <if test="course_content != null">
+        #{course_content,jdbcType=VARCHAR},
+      </if>
+      <if test="course_module != null">
+        #{course_module,jdbcType=VARCHAR},
+      </if>
+      <if test="course_scenes != null">
+        #{course_scenes,jdbcType=VARCHAR},
+      </if>
+      <if test="course_task != null">
+        #{course_task,jdbcType=VARCHAR},
+      </if>
+      <if test="course_type != null">
+        #{course_type,jdbcType=VARCHAR},
+      </if>
+      <if test="coreliteracyid != null">
+        #{coreliteracyid,jdbcType=INTEGER},
+      </if>
+      <if test="textbookId != null">
+        #{textbookId,jdbcType=INTEGER},
+      </if>
+      <if test="textbookName != null">
+        #{textbookName,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookType != null">
+        #{textbookType,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookDtailId != null">
+        #{textbookDtailId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailChapter != null">
+        #{detailChapter,jdbcType=VARCHAR},
+      </if>
+      <if test="detailSection != null">
+        #{detailSection,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookcaseId != null">
+        #{textbookcaseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseTheme != null">
+        #{caseTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="caseContent != null">
+        #{caseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="caseScenes != null">
+        #{caseScenes,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTask != null">
+        #{caseTask,jdbcType=VARCHAR},
+      </if>
+      <if test="caseSummary != null">
+        #{caseSummary,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.education.system.entity.eduTaskdetailExample" resultType="java.lang.Long">
+    select count(*) from edu_taskdetail
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update edu_taskdetail
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.taskId != null">
+        taskId = #{record.taskId,jdbcType=INTEGER},
+      </if>
+      <if test="record.course_name != null">
+        course_name = #{record.course_name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.term != null">
+        term = #{record.term,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coreliteracycoefficient != null">
+        coreliteracycoefficient = #{record.coreliteracycoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="record.schoolhour != null">
+        schoolhour = #{record.schoolhour,jdbcType=INTEGER},
+      </if>
+      <if test="record.course_theme != null">
+        course_theme = #{record.course_theme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course_content != null">
+        course_content = #{record.course_content,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course_module != null">
+        course_module = #{record.course_module,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course_scenes != null">
+        course_scenes = #{record.course_scenes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course_task != null">
+        course_task = #{record.course_task,jdbcType=VARCHAR},
+      </if>
+      <if test="record.course_type != null">
+        course_type = #{record.course_type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coreliteracyid != null">
+        coreliteracyid = #{record.coreliteracyid,jdbcType=INTEGER},
+      </if>
+      <if test="record.textbookId != null">
+        textbookId = #{record.textbookId,jdbcType=INTEGER},
+      </if>
+      <if test="record.textbookName != null">
+        textbookName = #{record.textbookName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textbookType != null">
+        textbookType = #{record.textbookType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textbookDtailId != null">
+        textbookDtailId = #{record.textbookDtailId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailChapter != null">
+        detailChapter = #{record.detailChapter,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detailSection != null">
+        detailSection = #{record.detailSection,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detail != null">
+        detail = #{record.detail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.textbookcaseId != null">
+        textbookcaseId = #{record.textbookcaseId,jdbcType=INTEGER},
+      </if>
+      <if test="record.caseTheme != null">
+        caseTheme = #{record.caseTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseContent != null">
+        caseContent = #{record.caseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseScenes != null">
+        caseScenes = #{record.caseScenes,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseTask != null">
+        caseTask = #{record.caseTask,jdbcType=VARCHAR},
+      </if>
+      <if test="record.caseSummary != null">
+        caseSummary = #{record.caseSummary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update edu_taskdetail
+    set id = #{record.id,jdbcType=INTEGER},
+      taskId = #{record.taskId,jdbcType=INTEGER},
+      course_name = #{record.course_name,jdbcType=VARCHAR},
+      term = #{record.term,jdbcType=VARCHAR},
+      coreliteracycoefficient = #{record.coreliteracycoefficient,jdbcType=VARCHAR},
+      schoolhour = #{record.schoolhour,jdbcType=INTEGER},
+      course_theme = #{record.course_theme,jdbcType=VARCHAR},
+      course_content = #{record.course_content,jdbcType=VARCHAR},
+      course_module = #{record.course_module,jdbcType=VARCHAR},
+      course_scenes = #{record.course_scenes,jdbcType=VARCHAR},
+      course_task = #{record.course_task,jdbcType=VARCHAR},
+      course_type = #{record.course_type,jdbcType=VARCHAR},
+      coreliteracyid = #{record.coreliteracyid,jdbcType=INTEGER},
+      textbookId = #{record.textbookId,jdbcType=INTEGER},
+      textbookName = #{record.textbookName,jdbcType=VARCHAR},
+      textbookType = #{record.textbookType,jdbcType=VARCHAR},
+      textbookDtailId = #{record.textbookDtailId,jdbcType=VARCHAR},
+      detailChapter = #{record.detailChapter,jdbcType=VARCHAR},
+      detailSection = #{record.detailSection,jdbcType=VARCHAR},
+      detail = #{record.detail,jdbcType=VARCHAR},
+      textbookcaseId = #{record.textbookcaseId,jdbcType=INTEGER},
+      caseTheme = #{record.caseTheme,jdbcType=VARCHAR},
+      caseContent = #{record.caseContent,jdbcType=VARCHAR},
+      caseScenes = #{record.caseScenes,jdbcType=VARCHAR},
+      caseTask = #{record.caseTask,jdbcType=VARCHAR},
+      caseSummary = #{record.caseSummary,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.education.system.entity.eduTaskdetail">
+    update edu_taskdetail
+    <set>
+      <if test="taskId != null">
+        taskId = #{taskId,jdbcType=INTEGER},
+      </if>
+      <if test="course_name != null">
+        course_name = #{course_name,jdbcType=VARCHAR},
+      </if>
+      <if test="term != null">
+        term = #{term,jdbcType=VARCHAR},
+      </if>
+      <if test="coreliteracycoefficient != null">
+        coreliteracycoefficient = #{coreliteracycoefficient,jdbcType=VARCHAR},
+      </if>
+      <if test="schoolhour != null">
+        schoolhour = #{schoolhour,jdbcType=INTEGER},
+      </if>
+      <if test="course_theme != null">
+        course_theme = #{course_theme,jdbcType=VARCHAR},
+      </if>
+      <if test="course_content != null">
+        course_content = #{course_content,jdbcType=VARCHAR},
+      </if>
+      <if test="course_module != null">
+        course_module = #{course_module,jdbcType=VARCHAR},
+      </if>
+      <if test="course_scenes != null">
+        course_scenes = #{course_scenes,jdbcType=VARCHAR},
+      </if>
+      <if test="course_task != null">
+        course_task = #{course_task,jdbcType=VARCHAR},
+      </if>
+      <if test="course_type != null">
+        course_type = #{course_type,jdbcType=VARCHAR},
+      </if>
+      <if test="coreliteracyid != null">
+        coreliteracyid = #{coreliteracyid,jdbcType=INTEGER},
+      </if>
+      <if test="textbookId != null">
+        textbookId = #{textbookId,jdbcType=INTEGER},
+      </if>
+      <if test="textbookName != null">
+        textbookName = #{textbookName,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookType != null">
+        textbookType = #{textbookType,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookDtailId != null">
+        textbookDtailId = #{textbookDtailId,jdbcType=VARCHAR},
+      </if>
+      <if test="detailChapter != null">
+        detailChapter = #{detailChapter,jdbcType=VARCHAR},
+      </if>
+      <if test="detailSection != null">
+        detailSection = #{detailSection,jdbcType=VARCHAR},
+      </if>
+      <if test="detail != null">
+        detail = #{detail,jdbcType=VARCHAR},
+      </if>
+      <if test="textbookcaseId != null">
+        textbookcaseId = #{textbookcaseId,jdbcType=INTEGER},
+      </if>
+      <if test="caseTheme != null">
+        caseTheme = #{caseTheme,jdbcType=VARCHAR},
+      </if>
+      <if test="caseContent != null">
+        caseContent = #{caseContent,jdbcType=VARCHAR},
+      </if>
+      <if test="caseScenes != null">
+        caseScenes = #{caseScenes,jdbcType=VARCHAR},
+      </if>
+      <if test="caseTask != null">
+        caseTask = #{caseTask,jdbcType=VARCHAR},
+      </if>
+      <if test="caseSummary != null">
+        caseSummary = #{caseSummary,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.education.system.entity.eduTaskdetail">
+    update edu_taskdetail
+    set taskId = #{taskId,jdbcType=INTEGER},
+      course_name = #{course_name,jdbcType=VARCHAR},
+      term = #{term,jdbcType=VARCHAR},
+      coreliteracycoefficient = #{coreliteracycoefficient,jdbcType=VARCHAR},
+      schoolhour = #{schoolhour,jdbcType=INTEGER},
+      course_theme = #{course_theme,jdbcType=VARCHAR},
+      course_content = #{course_content,jdbcType=VARCHAR},
+      course_module = #{course_module,jdbcType=VARCHAR},
+      course_scenes = #{course_scenes,jdbcType=VARCHAR},
+      course_task = #{course_task,jdbcType=VARCHAR},
+      course_type = #{course_type,jdbcType=VARCHAR},
+      coreliteracyid = #{coreliteracyid,jdbcType=INTEGER},
+      textbookId = #{textbookId,jdbcType=INTEGER},
+      textbookName = #{textbookName,jdbcType=VARCHAR},
+      textbookType = #{textbookType,jdbcType=VARCHAR},
+      textbookDtailId = #{textbookDtailId,jdbcType=VARCHAR},
+      detailChapter = #{detailChapter,jdbcType=VARCHAR},
+      detailSection = #{detailSection,jdbcType=VARCHAR},
+      detail = #{detail,jdbcType=VARCHAR},
+      textbookcaseId = #{textbookcaseId,jdbcType=INTEGER},
+      caseTheme = #{caseTheme,jdbcType=VARCHAR},
+      caseContent = #{caseContent,jdbcType=VARCHAR},
+      caseScenes = #{caseScenes,jdbcType=VARCHAR},
+      caseTask = #{caseTask,jdbcType=VARCHAR},
+      caseSummary = #{caseSummary,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
