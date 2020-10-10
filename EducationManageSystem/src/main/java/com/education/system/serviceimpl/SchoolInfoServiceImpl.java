@@ -91,11 +91,10 @@ public class SchoolInfoServiceImpl {
         return true;
     }
 
-    public boolean updateSchoolInfo(SchoolInfoDto schoolInfo){
+    public int updateSchoolInfo(SchoolInfoDto schoolInfo){
         boolean result = false;
         logger.info("schoolInfo"+ schoolInfo.toString());
-        eduSchoolMapper.updateByPrimaryKeySelective(schoolInfo);
-        return result;
+        return eduSchoolMapper.updateByPrimaryKeySelective(schoolInfo);
     }
 
     public void deleteSchool(int id) {
