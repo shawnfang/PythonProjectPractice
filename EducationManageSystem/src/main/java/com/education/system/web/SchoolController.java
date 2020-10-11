@@ -8,6 +8,8 @@ import com.education.system.mapper.eduSchoolMapper;
 import com.education.system.serviceimpl.SchoolInfoServiceImpl;
 import com.education.system.util.ApiResult;
 import com.education.system.util.PhoneFormatCheckUtils;
+import org.apache.commons.lang.BooleanUtils;
+import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +35,6 @@ public class SchoolController {
     private ApiResult<?> delete(@PathVariable("id") int id){
         schoolInfoService.deleteSchool(id);
         return ApiResult.newSuccess();
-
     }
 
     @GetMapping("/schoollist")
@@ -46,9 +47,9 @@ public class SchoolController {
 
     @PostMapping("/addschool")
     private ApiResult<?> addschool(@RequestBody SchoolInfoDto params){
-        logger.info("test1:"+JSON.toJSONString(params));
-        logger.info("test2:"+JSON.toJSONString(params.getAccounts().getAccount()));
-        logger.info("test3:"+JSON.toJSONString(params.getAccounts().getPassword()));
+        if (BooleanUtils.isFalse(schoolInfoService.addSchoolInfo(params))) {
+            return ApiResult.newError("账号重复或者新增的学校信息重复");
+        }
         return ApiResult.newSuccess(schoolInfoService.addSchoolInfo(params));
     }
 
@@ -65,16 +66,9 @@ public class SchoolController {
 
     @PostMapping("/searchschool")
     private ApiResult<?> searchschool(@RequestBody SchoolSearchDto params){
-        if (params.getSchoolName() != null) {
-            if (!(params.getSchoolName() instanceof String)) {
-                return ApiResult.newError("学校名称字符类型错误");
-            }
+        if (!StringUtils.isNotEmpty(schoolInfoService.searchSchool(params))) {
+            return ApiResult.newError("没有可查询的信息");
         }
-        if (params.getSchoolContactor() != null ) {
-            if (!(params.getSchoolContactor() instanceof String)) {
-                return ApiResult.newError("学校联系人字符类型错误");
-            }
-        }
-        return ApiResult.newSuccess(schoolInfoService.searchSchool(params));
+        return ApiResult.newSuccess();
     }
 }
